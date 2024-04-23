@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+}
+
+.header-container {
+  padding: 0;
+  margin: 0;
+  position: relative; /* Make the container positioned */
+}
+
+.custom-image {
+  width: 100%;
+  height: 30vh;
+  background-image: url('/navbar.webp');
+  background-size: cover; /* Ensure the image covers the entire container */
+  clip-path: polygon(0 0, 100% 0, 100% 60%, 0% 100%); /* Define a polygon clip path */
+  transform: skewY(0deg); /* Skew the image */
+  position: absolute; /* Position the image absolutely within its container */
+  top: 0;
+  left: 0;
+}
+
+.footer-image{
+  width: 100%;
+  height: 20vh;
+  background-image: url('/footer.webp');
+  background-size: full;
+  position: absolute; 
+  left: 0;
+}
+
+.text-container {
+  position: relative; /* Ensure the text container stays on top of the image */
+  z-index: 1; /* Set a higher z-index to make sure it's above the image */
+  color: white; /* Set text color to white for better visibility */
+  padding: 20px; /* Adjust padding as needed */
+}
+
+.colombo-text{
+  display: flex;
+  flex-direction: column;
+}
+
+Button:hover{
+  background-color: #A15D48;
+}
