@@ -2,7 +2,7 @@ import {Outlet} from "react-router-dom";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
-function AuthLayout() {
+function TravellerLayout() {
     return (
         <div className={'nunito-sans-light'}>
             <Navbar/>
@@ -18,4 +18,4 @@ function AuthLayout() {
     );
 }
 
-export default AuthLayout;
+export default TravellerLayout;

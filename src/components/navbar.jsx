@@ -1,46 +1,60 @@
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Button, Container, FormControl, Stack, Typography, MenuItem, Select, InputLabel } from "@mui/material";
 import React from "react";
-import Dropdown from 'react-bootstrap/Dropdown';
+import { Link } from "react-router-dom";
 
 function Navbar() {
-    return (
-        <Container >
-            <div className="custom-image"></div>
-            <Stack direction="row" justifyContent="space-around" className="text-container">
-            <div className="colombo-text"> 
-                    <Typography style={{color:'#CAB1AA', fontSize:'25px'}}>COLOMBO</Typography>
-                    <Typography style={{color:'white', fontSize:'30px'}}>UNLOCKED</Typography>
-                </div>
-                <Button style={{color:'white'}}>HOME</Button>
-                <Button style={{color:'white'}}>STAYS</Button>
-                <Button style={{color:'white'}}>EXPLORE MORE</Button>
-                <div className="colombo-text"> 
-                    <Button style={{color:'white'}}>LIST YOUR PROPERTY</Button>
-                    <Button style={{color:'white'}}>USER PROFILE</Button>
-                </div>
-                <Dropdown>
-                  <Dropdown.Toggle variant="success" id="dropdown-basic" style={{color:'white', background:'none'}}>
-                        LOGIN
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">TRAVELLER</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">PROPERTY OWNER</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown>
-                  <Dropdown.Toggle variant="success" id="dropdown-basic" style={{color:'white', background:'none'}}>
-                        SIGN UP
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">TRAVELLER</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">PROPERTY OWNER</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-            </Stack>
-        </Container>
-    )
+  return (
+    <Container >
+      <div className="custom-image"></div>
+      <Stack direction="row" justifyContent="space-around" className="text-container">
+        <div className="colombo-text">
+          <Typography style={{ color: '#CAB1AA', fontSize: '25px' }}>COLOMBO</Typography>
+          <Typography style={{ color: 'white', fontSize: '30px' }}>UNLOCKED</Typography>
+        </div>
+        <Link style={{ color: 'white', textDecoration: 'none' }}>HOME</Link>
+        <Link style={{ color: 'white', textDecoration: 'none' }}>STAYS</Link>
+        <Link style={{ color: 'white', textDecoration: 'none' }}>EXPLORE MORE</Link>
+        <div className="colombo-text">
+          <Link to={'/traveller/property'} style={{ color: 'white', textDecoration: 'none' }}>LIST YOUR PROPERTY</Link>
+          <Link to={'/traveller/profile'} style={{ color: 'white', textDecoration: 'none' }}>USER PROFILE</Link>
+        </div>
+        <FormControl sx={{ minWidth: '7vw' }}>
+          <InputLabel id="demo-simple-select-label">LOGIN</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            // value={age}
+            label="Login"
+          // onChange={handleChange}
+          >
+            <MenuItem>
+              <Link to={'/auth/login'} style={{ color: 'black', textDecoration: 'none' }}>TRAVELLER</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to={'/auth/loginprop'} style={{ color: 'black', textDecoration: 'none' }}>PROPERTY OWNER</Link>
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl sx={{ minWidth: '7vw' }}>
+          <InputLabel id="demo-simple-select-label">SIGN UP</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            // value={age}
+            label="Login"
+          // onChange={handleChange}
+          >
+            <MenuItem>
+              <Link to={'/auth/register'} style={{ color: 'black', textDecoration: 'none' }}>TRAVELLER</Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to={'/auth/registerprop'} style={{ color: 'black', textDecoration: 'none' }}>PROPERTY OWNER</Link>
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </Stack>
+    </Container>
+  )
 }
 
 export default Navbar;
