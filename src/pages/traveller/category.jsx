@@ -1,14 +1,16 @@
 import { Button, Container, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
-import * as React from 'react';
+import React, {useState} from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from "react-router-dom";
 import Rating from '@mui/material/Rating';
 import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
+import ReviewDialog from "../../components/review_dialog";
 
 function Category() {
-    const [value, setValue] = React.useState(2);
-    const [showReviewBox, setShowReviewBox] = React.useState(false);
-    const [reviewContent, setReviewContent] = React.useState('');
+    const [value, setValue] = useState(2);
+    const [showReviewBox, setShowReviewBox] = useState(false);
+    const [reviewContent, setReviewContent] = useState('');
+    const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
 
     const handleReviewClick = () => {
         setShowReviewBox(true);
@@ -19,6 +21,15 @@ function Category() {
         setReviewContent('');
         setShowReviewBox(false);
     };
+
+    const handleReviewDialogOpen = () => {
+        console.log('hi');
+        setReviewDialogOpen(true);
+      };
+    
+      const handleReviewDialogClose = () => {
+        setReviewDialogOpen(false);
+      };
 
     return(
         <Container>
@@ -41,9 +52,16 @@ function Category() {
                         </MenuItem>
                     </Select>
                 </FormControl>
+                <div className="pa2">
+                    <input 
+                      className="search-bar"
+                      type = "search" 
+                      placeholder = "Search Places" 
+                    />
+                </div>
                 <Link to={'/traveller/addProperty'} style={{textDecoration:'none', color:'black', cursor:'pointer', marginTop:'2vh'}}>
                     <AddCircleOutlineIcon/>
-                    Add a Property
+                    Add a Place
                 </Link>
             </Stack>
             <Typography sx={{
@@ -87,7 +105,13 @@ function Category() {
                     {showReviewBox && (
                         <Button onClick={handleReviewSubmit} variant="contained" style={{backgroundColor:'#A15D48', marginBottom:'3vh'}}>Submit Review</Button>
                     )}
-                    <Button variant="outlined" style={{marginBottom:'3vh'}}>Reviews</Button>
+                    <Button variant="outlined" style={{marginBottom:'3vh'}} onClick={handleReviewDialogOpen}>
+                        Reviews
+                    </Button>
+                    <ReviewDialog 
+                        open={reviewDialogOpen}
+                        onClose={handleReviewDialogClose}
+                    />
                 </Stack>
                 <Stack direction='column' width='15vw'>
                     <img className="category-image" src="/tea.jpeg" alt="" />
@@ -107,7 +131,13 @@ function Category() {
                         />
                         <MapsUgcOutlinedIcon/>
                     </Stack>
-                    <Button variant="outlined" style={{marginBottom:'3vh'}}>Reviews</Button>
+                    <Button variant="outlined" style={{marginBottom:'3vh'}} onClick={handleReviewDialogOpen}>
+                        Reviews
+                    </Button>
+                    <ReviewDialog 
+                        open={reviewDialogOpen}
+                        onClose={handleReviewDialogClose}
+                    />
                 </Stack>
                 <Stack direction='column' width='15vw'>
                     <img className="category-image" src="/nawala.jpg" alt="" />
@@ -127,7 +157,13 @@ function Category() {
                         />
                         <MapsUgcOutlinedIcon sx={{cursor:'pointer'}}/>
                     </Stack>
-                    <Button variant="outlined" style={{marginBottom:'3vh'}}>Reviews</Button>
+                    <Button variant="outlined" style={{marginBottom:'3vh'}} onClick={handleReviewDialogOpen}>
+                        Reviews
+                    </Button>
+                    <ReviewDialog 
+                        open={reviewDialogOpen}
+                        onClose={handleReviewDialogClose}
+                    />
                 </Stack>
             </Stack>
         </Container>

@@ -7,10 +7,7 @@ function Navbar() {
     <Container >
       <div className="custom-image"></div>
       <Stack direction="row" justifyContent="space-around" className="text-container">
-        <div className="colombo-text">
-          <Typography style={{ color: '#CAB1AA', fontSize: '25px' }}>COLOMBO</Typography>
-          <Typography style={{ color: 'white', fontSize: '30px' }}>UNLOCKED</Typography>
-        </div>
+        <img src="/logo.png" className="logo"/>
         <Link style={{ color: 'white', textDecoration: 'none' }}>HOME</Link>
         <Link style={{ color: 'white', textDecoration: 'none' }}>STAYS</Link>
         <Link style={{ color: 'white', textDecoration: 'none' }}>EXPLORE MORE</Link>

@@ -14,8 +14,16 @@ import SignUpPropertyOwner from "./pages/auth/signup_po";
 import TravellerLayout from "./layouts/traveller_layout";
 import Profile from "./pages/traveller/profile";
 import PropertyList from "./pages/traveller/property_list";
-import AddProperty from "./pages/traveller/add_property";
+import AddProperty from "./pages/propertyOwner/add_property";
 import Category from "./pages/traveller/category";
+import PropertyOwnerLayout from "./layouts/propertyOwner_layout";
+import ViewProperty from "./pages/propertyOwner/view_property";
+import AddPlace from "./pages/traveller/add_place";
+import EditProperty from "./pages/propertyOwner/edit_property";
+import EditPlace from "./pages/traveller/edit_place";
+import OwnerProfile from "./pages/propertyOwner/owner_profile";
+import Booking from "./pages/traveller/bookings";
+import WishList from "./pages/traveller/wishlist";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -31,8 +39,17 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path={"traveller"} element={<TravellerLayout/>} >
       <Route path={"profile"} element={<Profile/>} />
       <Route path={"property"} element={<PropertyList/>} />
-      <Route path={"addProperty"} element={<AddProperty/>} />
+      <Route path={"addPlace"} element={<AddPlace/>} />
+      <Route path={"editPlace"} element={<EditPlace/>} />
       <Route path={"category"} element={<Category/>} />
+      <Route path={"booking"} element={<Booking/>} />
+      <Route path={"wishlist"} element={<WishList/>} />
+    </Route>
+    <Route path={"propertyOwner"} element={<PropertyOwnerLayout/>} >
+      <Route path={"profile"} element={<OwnerProfile/>} />
+      <Route path={"viewProperty"} element={<ViewProperty/>} />
+      <Route path={"addProperty"} element={<AddProperty/>} />
+      <Route path={"editProperty"} element={<EditProperty/>} />
     </Route>
   </Route>
 ));

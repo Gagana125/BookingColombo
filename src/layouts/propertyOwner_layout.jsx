@@ -1,11 +1,11 @@
 import {Outlet} from "react-router-dom";
 import Footer from "../components/footer";
-import TravellerNavbar from "../components/traveller_navbar";
+import OwnerNavbar from "../components/owner_navbar";
 
-function TravellerLayout() {
+function PropertyOwnerLayout() {
     return (
         <div className={'nunito-sans-light'}>
-            <TravellerNavbar/>
+            <OwnerNavbar/>
             <div className={'flex'}>
                 <div className={"w-[60%] max-2xl:pt-14"}>
                     <main>
@@ -18,4 +18,4 @@ function TravellerLayout() {
     );
 }
 
-export default TravellerLayout;
+export default PropertyOwnerLayout;

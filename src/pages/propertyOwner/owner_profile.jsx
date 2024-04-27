@@ -3,10 +3,12 @@ import { Button, Container, Divider, FormControl, IconButton, InputAdornment, Ou
 import React, {useState} from "react";
 import DeleteDialog from "../../components/delete_dialog";
 import { Link } from "react-router-dom";
+import ReportDialog from "../../components/report_dialog";
 
-function Profile() {
+function OwnerProfile() {
     const [showPassword, setShowPassword] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [reportDialogOpen, setReportDialogOpen] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -27,26 +29,46 @@ function Profile() {
     setDeleteDialogOpen(false);
   };
 
+  const handleReportDialogOpen = () => {
+    setReportDialogOpen(true);
+  };
+
+  const handleReportDialogClose = () => {
+    setReportDialogOpen(false);
+  };
+
     return(
         <Container>
-            <Stack direction='row' justifyContent='space-between' marginTop='3vh' marginLeft='15vw'>
-                <img className="profile-image" src="/woman.avif" alt="" />
-                <Stack direction='column'>
+            <Stack direction='row' justifyContent='space-between' marginTop='3vh' marginLeft='10vw'>
+                <img className="profile-image" src="/owner.webp" alt="" />
+                <Stack direction='column' width='50vw'>
                     <Typography sx={{color:'#26626A', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh'}}>RACHEL KAREN GREEN</Typography>
                     <Stack direction='row' width='30vw' justifyContent='space-between'>
                         <Typography>EMAIL : rachelgreen@gmail.com</Typography>
                         <Typography>PHONE: +94 123456789</Typography>
                     </Stack>
-                    <Divider style={{backgroundColor:'black', width:'40vw'}}></Divider>
+                    <Divider style={{backgroundColor:'black', width:'45vw'}}></Divider>
                     <Stack direction='row' style={{marginTop:'2vh'}}>
                         <Typography>Profile Completion </Typography>
                         <Divider orientation="vertical" flexItem style={{backgroundColor:'black', marginInline:'3vw'}}/>
-                        <Button style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginRight:'1vh'}}>
-                            <Link to={'/traveller/booking'} style={{textDecoration:'none', color:'white'}}>MY BOOKINGS</Link>
+                        <Button 
+                            style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginRight:'1vh'}}
+                        >
+                            <Link to={'/propertyOwner/viewProperty'} style={{textDecoration:'none', color:'white'}}>MY PROPERTIES</Link>
                         </Button>
                         <Button style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginRight:'1vh'}}>
-                            <Link to={'/traveller/wishlist'} style={{textDecoration:'none', color:'white'}}>WISH LIST</Link>
+                            <Link to={'/propertyOwner/addProperty'} style={{textDecoration:'none', color:'white'}}>ADD NEW PROPERTY</Link>
                         </Button>
+                        <Button 
+                            style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginRight:'1vh'}}
+                            onClick={handleReportDialogOpen}
+                        >
+                            VIEW REPORTS
+                        </Button>
+                        <ReportDialog
+                            open={reportDialogOpen}
+                            onClose={handleReportDialogClose}
+                        />
                     </Stack>
                 </Stack>
             </Stack>
@@ -61,6 +83,13 @@ function Profile() {
             }}>
                 USER PROFILE
             </Typography>
+            <TextField
+                    disabled
+                    id="outlined-disabled"
+                    label="Profile ID"
+                    defaultValue="PO9878"
+                    style={{backgroundColor:'#26626A', borderRadius:'5px', color:'white', width: '30vw', margin:'2vh', marginLeft:'2vw'}}
+                />
             <Stack direction='row' justifyContent='space-around' width='50vw' alignItems='center'>
                 <TextField
                     disabled
@@ -164,4 +193,4 @@ function Profile() {
     )
 }
 
-export default Profile
+export default OwnerProfile

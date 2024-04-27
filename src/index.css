@@ -12,6 +12,60 @@ body {
   position: relative; /* Make the container positioned */
 }
 
+.logo{
+  width: 10vw;
+  height: 10vh;
+}
+
+.home-img-container{
+  display: flex;
+  flex-wrap: wrap;
+  width: 50vw;
+  margin-top: 3vh;
+}
+
+.home-img-container2{
+  display: flex;
+  flex-wrap: wrap;
+  width: 35vw;
+}
+
+.home-img-container3{
+  display: flex;
+  flex-wrap: wrap;
+  width: 25vw;
+}
+
+.home-image{
+  width: 20vw;
+  height: 22vh;
+  margin: 1vh;
+}
+
+.home-image2{
+  width: 15vw;
+  height: 35vh;
+  margin: 1vh;
+}
+
+.home-image3{
+  width: 16vw;
+  height: 20vh;
+  margin: 1vh;
+}
+
+.home-image4{
+  width: 15vw;
+  height: 42vh;
+  margin: 1vh;
+}
+
+.home-image5{
+  width: 24vw;
+  height: 20vh;
+  margin: 1vh;
+}
+
 .custom-image {
   width: 100%;
   height: 20vh;
@@ -123,25 +177,37 @@ body {
   width: 20vw;
   height: 55vh;
   margin-bottom: 2vw;
+}
 
+.destination-image2{
+  width: 20vw;
+  height: 50vh;
+  /* margin-bottom: 2vw; */
 }
 
 .property-form-label{
-  width: 16vw;
+  width: 18vw;
   height: 6vh;
   font-weight: bolder;
 }
 
 .property-form-dropdown{
-  width: 10vw;
+  width: 25vw;
   height: 5vh;
   border-radius: 5px;
   background-color: #77A6AC;
 }
 
 .property-form-text{
-  width: 20vw;
+  width: 25vw;
   height: 6vh;
+  background-color: #77A6AC;
+  border: none;
+}
+
+.property-form-textarea{
+  /* width: 20vw;
+  height: 6vh; */
   background-color: #77A6AC;
   border: none;
 }
@@ -150,4 +216,32 @@ body {
   width: 12vw;
   height: 20vh;
   margin-bottom: 2vh;
+}
+
+.booking-img{
+  width: 20vw;
+  height: 25vh;
+  margin-right: 4vw;
+}
+
+.booking-img2{
+  width: 20vw;
+  height: 25vh;
+  margin-left: 6vw;
+}
+
+/* reviews */
+
+.profile-image2{
+  /* margin: 3vh; */
+  margin-left: 2vw;
+  border-radius: 50%;
+  width: 5vw;
+  height: 10vh;
+}
+
+.search-bar{
+  width: 15vw;
+  border-radius: 15px;
+  height: 5vh;
 }

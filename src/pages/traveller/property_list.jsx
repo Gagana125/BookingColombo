@@ -48,7 +48,14 @@ function PropertyList() {
                         </MenuItem>
                     </Select>
                 </FormControl>
-                <Link to={'/traveller/addProperty'} style={{textDecoration:'none', color:'black', cursor:'pointer', marginTop:'2vh'}}>
+                <div className="pa2">
+                    <input 
+                      className="search-bar"
+                      type = "search" 
+                      placeholder = "Search Places" 
+                    />
+                </div>
+                <Link to={'/propertyOwner/addProperty'} style={{textDecoration:'none', color:'black', cursor:'pointer', marginTop:'2vh'}}>
                     <AddCircleOutlineIcon/>
                     Add a Property
                 </Link>

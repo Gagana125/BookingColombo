@@ -25,13 +25,7 @@ function Footer() {
                         <Typography>+94 123456789</Typography>
                     </Stack>
                 </Stack>
-
-                <Stack direction="column">
-                    <div className="colombo-text">
-                        <Typography style={{ color: '#CAB1AA', fontSize: '25px' }}>COLOMBO</Typography>
-                        <Typography style={{ color: 'white', fontSize: '30px' }}>UNLOCKED</Typography>
-                    </div>
-                </Stack>
+                <img src="/logo.png" className="logo"/>
             </Stack>
         </Container>
     )

@@ -3,15 +3,22 @@ import { Container } from "react-bootstrap";
 import { Button, FormControl, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, Stack, TextField, Typography } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPropertyOwner() {
-    const [showPassword, setShowPassword] = React.useState(false);
+  let navigate = useNavigate();
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleProperties = () => {
+    // console.log('here');
+    navigate('/propertyOwner/viewProperty');
+  }
 
     return(
         <Container>
@@ -42,7 +49,21 @@ function LoginPropertyOwner() {
                         />
                     </FormControl>
                     <Stack direction='column' justifyContent='center' alignContent='center'>
-                        <Button sx={{borderRadius:'15px', backgroundColor:'#A15D48', color:'white', width:'6vw', alignContent:'center', justifyContent:'center', marginTop:'5vh'}}>Login</Button>
+                        <Button 
+                          sx={{
+                          borderRadius:'15px', 
+                          backgroundColor:'#A15D48', 
+                          color:'white', 
+                          width:'6vw', 
+                          alignContent:'center', 
+                          justifyContent:'center', 
+                          marginTop:'5vh'
+                        }}
+                        onClick={handleProperties}
+                        >
+                          Login
+                          {/* <Link to={'/propertyOwner/viewProperty'} style={{color:'white', textDecoration:'none'}}>Login</Link> */}
+                        </Button>
                         <Typography style={{fontSize:'small', marginBottom:'10vh'}}>FORGOT YOUR PASSWORD? <Link style={{color:'red', textDecoration:'none', cursor:'pointer'}}>RESET PASSWORD</Link></Typography>
                     </Stack>
                     
