@@ -24,6 +24,8 @@ import EditPlace from "./pages/traveller/edit_place";
 import OwnerProfile from "./pages/propertyOwner/owner_profile";
 import Booking from "./pages/traveller/bookings";
 import WishList from "./pages/traveller/wishlist";
+import Explore from "./pages/traveller/explore";
+import ExploreMore from "./pages/propertyOwner/explore_more";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -44,12 +46,14 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={"category"} element={<Category/>} />
       <Route path={"booking"} element={<Booking/>} />
       <Route path={"wishlist"} element={<WishList/>} />
+      <Route path={"explore"} element={<Explore/>} />
     </Route>
     <Route path={"propertyOwner"} element={<PropertyOwnerLayout/>} >
       <Route path={"profile"} element={<OwnerProfile/>} />
       <Route path={"viewProperty"} element={<ViewProperty/>} />
       <Route path={"addProperty"} element={<AddProperty/>} />
       <Route path={"editProperty"} element={<EditProperty/>} />
+      <Route path={"explore"} element={<ExploreMore/>} />
     </Route>
   </Route>
 ));

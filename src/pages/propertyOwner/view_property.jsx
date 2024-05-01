@@ -2,6 +2,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function ViewProperty() {
@@ -32,10 +33,16 @@ function ViewProperty() {
                     <Typography sx={{color:'#26626A', fontSize:'x-large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>
                         My Properties
                     </Typography>
-                    <Link to={'/propertyOwner/addProperty'} style={{textDecoration:'none', color:'#26626A', cursor:'pointer', marginTop:'2vh'}}>
-                        <AddCircleOutline/>
-                        Add a Property
-                    </Link>
+                    <Form className="search-bar">
+                    <Form.Control
+                      type="search"
+                      placeholder="Search"
+                      className="me-2"
+                      aria-label="Search Property"
+                      height="2vh"
+                    />
+                    <Button variant="outline-success">Search</Button>
+                </Form>
                 </Stack>
                 <Stack direction='row' justifyContent='flex-start' alignItems='start'>
                     <Typography sx={{color:'#26626A', fontSize:'medium', fontWeight:'bold', marginBottom:'1vh',}}>Property ID: </Typography>

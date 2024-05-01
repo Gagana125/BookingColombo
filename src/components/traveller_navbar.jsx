@@ -9,9 +9,9 @@ function TravellerNavbar() {
       <div className="custom-image"></div>
       <Stack direction="row" justifyContent="space-around" className="text-container">
         <img src="/logo.png" className="logo"/>
-        <Link style={{ color: 'white', textDecoration: 'none' }}>HOME</Link>
+        <Link to={'/'} style={{ color: 'white', textDecoration: 'none' }}>HOME</Link>
         <Link style={{ color: 'white', textDecoration: 'none' }}>STAYS</Link>
-        <Link style={{ color: 'white', textDecoration: 'none' }}>EXPLORE MORE</Link>
+        <Link to={'/traveller/explore'} style={{ color: 'white', textDecoration: 'none' }}>EXPLORE MORE</Link>
         <div className="colombo-text">
           <Link to={'/traveller/property'} style={{ color: 'white', textDecoration: 'none' }}>LIST YOUR PROPERTY</Link>
           <Link to={'/traveller/profile'} style={{ color: 'white', textDecoration: 'none' }}>USER PROFILE</Link>

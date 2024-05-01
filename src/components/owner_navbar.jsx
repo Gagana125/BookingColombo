@@ -11,7 +11,7 @@ function OwnerNavbar() {
         <img src="/logo.png" className="logo"/>
         <Link to={'/'} style={{ color: 'white', textDecoration: 'none' }}>HOME</Link>
         <Link style={{ color: 'white', textDecoration: 'none' }}>STAYS</Link>
-        <Link style={{ color: 'white', textDecoration: 'none' }}>EXPLORE MORE</Link>
+        <Link to={'/propertyOwner/explore'} style={{ color: 'white', textDecoration: 'none' }}>EXPLORE MORE</Link>
         <div className="colombo-text">
           <Link to={'/propertyOwner/viewProperty'} style={{ color: 'white', textDecoration: 'none' }}>LIST YOUR PROPERTY</Link>
           <Link to={'/propertyOwner/profile'} style={{ color: 'white', textDecoration: 'none' }}>USER PROFILE</Link>

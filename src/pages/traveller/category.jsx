@@ -37,16 +37,16 @@ function Category() {
                 <Typography sx={{color:'#26626A', fontSize:'x-large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>Category</Typography>
                 <FormControl sx={{ minWidth: '10vw' }}>
                     <InputLabel id="demo-simple-select-label">
-                        Categories
+                        Coffee Shops
                     </InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        label="Categories"
+                        label="Coffe Shops"
                     >
-                        <MenuItem>
+                        {/* <MenuItem>
                             <Typography>Coffee Shops</Typography>
-                        </MenuItem>
+                        </MenuItem> */}
                         <MenuItem>
                             <Typography>Kovils</Typography>
                         </MenuItem>

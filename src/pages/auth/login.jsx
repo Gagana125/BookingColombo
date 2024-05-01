@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Container } from "react-bootstrap";
-import { Button, FormControl, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, Stack, TextField, Typography } from "@mui/material";
+import { Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack, TextField, Typography } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const [showPassword, setShowPassword] = React.useState(false);
@@ -42,7 +43,15 @@ function Login() {
                         />
                     </FormControl>
                     <Stack direction='column' justifyContent='center' alignItems='center'>
-                        <Button sx={{borderRadius:'15px', backgroundColor:'#A15D48', color:'white', width:'6vw', alignContent:'center', justifyContent:'center', marginTop:'5vh'}}>Login</Button>
+                        <Button sx={{borderRadius:'15px', 
+                          backgroundColor:'#A15D48', 
+                          color:'white', 
+                          width:'6vw', 
+                          alignContent:'center', 
+                          justifyContent:'center', 
+                          marginTop:'5vh'}}>
+                            <Link to={'/traveller/property'} style={{textDecoration:'none', color:'white'}}>Login</Link>
+                        </Button>
                         <Typography style={{fontSize:'small', marginBottom:'10vh'}}>FORGOT YOUR PASSWORD? <Link style={{color:'red', textDecoration:'none', cursor:'pointer'}}>RESET PASSWORD</Link></Typography>
                     </Stack>
                     
