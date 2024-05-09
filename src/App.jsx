@@ -18,14 +18,17 @@ import AddProperty from "./pages/propertyOwner/add_property";
 import Category from "./pages/traveller/category";
 import PropertyOwnerLayout from "./layouts/propertyOwner_layout";
 import ViewProperty from "./pages/propertyOwner/view_property";
-import AddPlace from "./pages/traveller/add_place";
+import AddPlace from "./pages/admin/add_place";
 import EditProperty from "./pages/propertyOwner/edit_property";
-import EditPlace from "./pages/traveller/edit_place";
+import EditPlace from "./pages/admin/edit_place";
 import OwnerProfile from "./pages/propertyOwner/owner_profile";
 import Booking from "./pages/traveller/bookings";
 import WishList from "./pages/traveller/wishlist";
 import Explore from "./pages/traveller/explore";
 import ExploreMore from "./pages/propertyOwner/explore_more";
+import ViewDetails from "./pages/traveller/details";
+import AdminLayout from "./layouts/admin_layout";
+import BookingDetails from "./pages/traveller/booking_details";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -41,12 +44,12 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path={"traveller"} element={<TravellerLayout/>} >
       <Route path={"profile"} element={<Profile/>} />
       <Route path={"property"} element={<PropertyList/>} />
-      <Route path={"addPlace"} element={<AddPlace/>} />
-      <Route path={"editPlace"} element={<EditPlace/>} />
       <Route path={"category"} element={<Category/>} />
       <Route path={"booking"} element={<Booking/>} />
       <Route path={"wishlist"} element={<WishList/>} />
       <Route path={"explore"} element={<Explore/>} />
+      <Route path={"details"} element={<ViewDetails/>} />
+      <Route path={"bookingDetails"} element={<BookingDetails/>} />
     </Route>
     <Route path={"propertyOwner"} element={<PropertyOwnerLayout/>} >
       <Route path={"profile"} element={<OwnerProfile/>} />
@@ -54,6 +57,10 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={"addProperty"} element={<AddProperty/>} />
       <Route path={"editProperty"} element={<EditProperty/>} />
       <Route path={"explore"} element={<ExploreMore/>} />
+    </Route>
+    <Route path={"admin"} element={<AdminLayout />}>
+      <Route path={"addPlace"} element={<AddPlace/>} />
+      <Route path={"editPlace"} element={<EditPlace/>} />
     </Route>
   </Route>
 ));

@@ -50,7 +50,7 @@ function Login() {
                           alignContent:'center', 
                           justifyContent:'center', 
                           marginTop:'5vh'}}>
-                            <Link to={'/traveller/property'} style={{textDecoration:'none', color:'white'}}>Login</Link>
+                            <Link to={'/traveller/explore'} style={{textDecoration:'none', color:'white'}}>Login</Link>
                         </Button>
                         <Typography style={{fontSize:'small', marginBottom:'10vh'}}>FORGOT YOUR PASSWORD? <Link style={{color:'red', textDecoration:'none', cursor:'pointer'}}>RESET PASSWORD</Link></Typography>
                     </Stack>

@@ -59,10 +59,10 @@ function Category() {
                       placeholder = "Search Places" 
                     />
                 </div>
-                <Link to={'/traveller/addProperty'} style={{textDecoration:'none', color:'black', cursor:'pointer', marginTop:'2vh'}}>
+                {/* <Link to={'/traveller/addProperty'} style={{textDecoration:'none', color:'black', cursor:'pointer', marginTop:'2vh'}}>
                     <AddCircleOutlineIcon/>
                     Add a Place
-                </Link>
+                </Link> */}
             </Stack>
             <Typography sx={{
                 color:'#26626A', 

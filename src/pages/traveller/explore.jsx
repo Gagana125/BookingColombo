@@ -30,13 +30,13 @@ function Explore() {
 
     return(
         <Container>
-            <Button style={{backgroundColor:'#A15D48', borderRadius:'5px', marginTop:'5vh', marginLeft:'65vw'}}>
+            {/* <Button style={{backgroundColor:'#A15D48', borderRadius:'5px', marginTop:'5vh', marginLeft:'65vw'}}>
             <Link to={'/traveller/addPlace'} 
                 style={{textDecoration:'none',  color:'white', cursor:'pointer'}}>
                 <AddCircleOutline/>
                 Add a Place
             </Link> 
-            </Button>
+            </Button> */}
             <Tabs
                 activeKey={activeTab}
                 onSelect={handleTabChange}
@@ -53,17 +53,36 @@ function Explore() {
                             <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
                             <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
                         </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw',
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'3vh'
-                        }}>
-                            SEE PRICES
-                        </Button>
+                        <Stack direction='column' width='16vw' justifyContent='space-between'>
+                            <Button style={{
+                                backgroundColor:'#77A6AC', 
+                                color:'white', 
+                                borderRadius:'15px', 
+                                marginLeft:'1vw',
+                                width:'15vw', 
+                                height:'6vh',
+                                marginTop:'3vh'
+                            }}>
+                                <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                SEE DETAILS
+                            </Link>
+                            </Button>
+                            <Button style={{
+                                backgroundColor:'#77A6AC', 
+                                color:'white', 
+                                borderRadius:'15px', 
+                                marginLeft:'1vw',
+                                width:'15vw', 
+                                height:'6vh',
+                                marginTop:'3vh'
+                            }}>
+                                <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                <AddCircleOutline/>
+                                    ADD TO WISHLIST
+                                </Link>
+                            </Button>
+                        </Stack>
+
                     </Stack>
                     <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
                         <img className="explore-img" src="/b3.jfif" alt="" />
@@ -71,17 +90,35 @@ function Explore() {
                             <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
                             <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
                         </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw', 
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'3vh'
-                        }}>
-                            SEE PRICES
-                        </Button>
+                        <Stack direction='column' width='16vw' justifyContent='space-between'>
+                            <Button style={{
+                                backgroundColor:'#77A6AC', 
+                                color:'white', 
+                                borderRadius:'15px', 
+                                marginLeft:'1vw',
+                                width:'15vw', 
+                                height:'6vh',
+                                marginTop:'3vh'
+                            }}>
+                                <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                SEE DETAILS
+                            </Link>
+                            </Button>
+                            <Button style={{
+                                backgroundColor:'#77A6AC', 
+                                color:'white', 
+                                borderRadius:'15px', 
+                                marginLeft:'1vw',
+                                width:'15vw', 
+                                height:'6vh',
+                                marginTop:'3vh'
+                            }}>
+                                <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                <AddCircleOutline/>
+                                    ADD TO WISHLIST
+                                </Link>
+                            </Button>
+                        </Stack>
                     </Stack>
                     <Stack direction='column' marginBottom='2vh' width='16vw' margin='2vw' padding='1vw'>
                         <img className="explore-img" src="/b2.jfif" alt="" />
@@ -89,17 +126,35 @@ function Explore() {
                             <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
                             <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
                         </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw',
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'3vh'
-                        }}>
-                            SEE PRICES
-                        </Button>
+                        <Stack direction='column' width='16vw' justifyContent='space-between'>
+                            <Button style={{
+                                backgroundColor:'#77A6AC', 
+                                color:'white', 
+                                borderRadius:'15px', 
+                                marginLeft:'1vw',
+                                width:'15vw', 
+                                height:'6vh',
+                                marginTop:'3vh'
+                            }}>
+                                <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                SEE DETAILS
+                            </Link>
+                            </Button>
+                            <Button style={{
+                                backgroundColor:'#77A6AC', 
+                                color:'white', 
+                                borderRadius:'15px', 
+                                marginLeft:'1vw',
+                                width:'15vw', 
+                                height:'6vh',
+                                marginTop:'3vh'
+                            }}>
+                                <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                <AddCircleOutline/>
+                                    ADD TO WISHLIST
+                                </Link>
+                            </Button>
+                        </Stack>
                     </Stack>
                     </div>
                     
@@ -121,7 +176,9 @@ function Explore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                            SEE DETAILS
+                        </Link>
                         </Button>
                     </Stack>
                     <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -139,7 +196,9 @@ function Explore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                            SEE DETAILS
+                        </Link>
                         </Button>
                     </Stack>
                     <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -157,7 +216,9 @@ function Explore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                            SEE DETAILS
+                        </Link>
                         </Button>
                     </Stack>
                     </div>
@@ -179,7 +240,9 @@ function Explore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                            SEE DETAILS
+                        </Link>
                         </Button>
                     </Stack>
                     <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -197,7 +260,9 @@ function Explore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer', marginTop:'2vh'}}>
+                            SEE DETAILS
+                        </Link>
                         </Button>
                     </Stack>
                     <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -215,7 +280,9 @@ function Explore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer', marginTop:'2vh'}}>
+                            SEE DETAILS
+                        </Link>
                         </Button>
                     </Stack>
                     </div>

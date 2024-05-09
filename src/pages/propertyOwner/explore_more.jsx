@@ -30,13 +30,13 @@ function ExploreMore() {
 
     return(
         <Container>
-            <Button style={{backgroundColor:'#A15D48', borderRadius:'5px', marginTop:'5vh', marginLeft:'65vw'}}>
+            {/* <Button style={{backgroundColor:'#A15D48', borderRadius:'5px', marginTop:'5vh', marginLeft:'65vw'}}>
             <Link to={'/traveller/addPlace'} 
                 style={{textDecoration:'none',  color:'white', cursor:'pointer'}}>
                 <AddCircleOutline/>
                 Add a Place
             </Link> 
-            </Button>
+            </Button> */}
             <Tabs
                 activeKey={activeTab}
                 onSelect={handleTabChange}
@@ -62,7 +62,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'3vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -80,7 +80,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -98,7 +98,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     </div>
@@ -121,7 +121,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -139,7 +139,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -157,7 +157,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     </div>
@@ -179,7 +179,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -197,7 +197,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
@@ -215,7 +215,7 @@ function ExploreMore() {
                             height:'6vh',
                             marginTop:'8vh'
                         }}>
-                            SEE PRICES
+                            SEE DETAILS
                         </Button>
                     </Stack>
                     </div>
