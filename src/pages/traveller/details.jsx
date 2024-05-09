@@ -1,10 +1,11 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function ViewProperty() {
+function ViewDetails() {
     const images = [
         '/a.jfif',
         '/b.jfif',
@@ -30,9 +31,23 @@ function ViewProperty() {
             <Stack direction='column' alignItems='space-around'>
                 <Stack direction='row' justifyContent='space-between'>
                     <Typography sx={{color:'#26626A', fontSize:'x-large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>
-                        My Properties
+                        Property Details 
                     </Typography>
-                    <Form className="search-bar">
+                    <Button style={{
+                        backgroundColor:'#77A6AC', 
+                        color:'white', 
+                        borderRadius:'15px', 
+                        marginLeft:'1vw',
+                        width:'15vw', 
+                        height:'6vh',
+                        marginTop:'3vh'
+                    }}>
+                        <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                        <AddCircleOutline/>
+                            ADD TO WISHLIST
+                        </Link>
+                    </Button>
+                    {/* <Form className="search-bar">
                     <Form.Control
                       type="search"
                       placeholder="Search"
@@ -41,7 +56,7 @@ function ViewProperty() {
                       height="2vh"
                     />
                     <Button variant="outline-success">Search</Button>
-                </Form>
+                </Form> */}
                 </Stack>
                 <Stack direction='row' justifyContent='flex-start' alignItems='start'>
                     <Typography sx={{color:'#26626A', fontSize:'medium', fontWeight:'bold', marginBottom:'1vh',}}>Property ID: </Typography>
@@ -80,11 +95,10 @@ function ViewProperty() {
                             alignContent:'center', 
                             justifyContent:'center', 
                             marginTop:'5vh',
-                            marginRight:'5vw',
                             marginBottom:'3vh'
                         }}
                     >
-                            <Link to={'/propertyOwner/editProperty'} style={{textDecoration:'none', color:'white'}}>EDIT PROPERTY</Link>
+                            <Link to={'/traveller/bookingDetails'} style={{textDecoration:'none', color:'white'}}>CHECK BOOKINGS</Link>
                     </Button>
                     <Button 
                         sx={{ 
@@ -97,7 +111,7 @@ function ViewProperty() {
                             marginBottom:'3vh'
                         }}
                     >
-                            <Link to={'/traveller/property'} style={{textDecoration:'none', color:'white'}}>CHECK BOOKINGS</Link>
+                            <Link style={{textDecoration:'none', color:'white'}}>RESERVE</Link>
                     </Button>
                 </Stack>
                 
@@ -106,4 +120,4 @@ function ViewProperty() {
     )
 }
 
-export default ViewProperty
+export default ViewDetails

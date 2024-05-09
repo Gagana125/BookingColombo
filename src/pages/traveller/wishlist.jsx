@@ -1,5 +1,6 @@
 import { Button, Container, Stack, Typography } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function WishList() {
     return(
@@ -21,7 +22,9 @@ function WishList() {
                         height:'6vh',
                         marginTop:'1vh'
                     }}>
-                        SEE DETAILS 
+                        <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                            SEE DETAILS
+                        </Link> 
                     </Button>
                 </Stack>
             </Stack>
@@ -38,7 +41,9 @@ function WishList() {
                         height:'6vh',
                         marginTop:'1vh'
                     }}>
-                        SEE DETAILS 
+                        <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                            SEE DETAILS
+                        </Link>
                     </Button>
                 </Stack>
                 <img className="booking-img2" src="/home.jfif" alt="" />
@@ -57,7 +62,9 @@ function WishList() {
                         height:'6vh',
                         marginTop:'1vh'
                     }}>
-                        SEE DETAILS 
+                       <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                            SEE DETAILS
+                        </Link>
                     </Button>
                 </Stack>
             </Stack>

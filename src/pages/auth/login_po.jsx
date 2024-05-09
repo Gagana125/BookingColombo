@@ -17,7 +17,7 @@ function LoginPropertyOwner() {
 
   const handleProperties = () => {
     // console.log('here');
-    navigate('/propertyOwner/viewProperty');
+    navigate('/propertyOwner/profile');
   }
 
     return(

@@ -1,8 +1,9 @@
-import { Container, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
+import { Button, Container, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import React, { useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from "react-router-dom";
+import { Form } from "react-bootstrap";
 
 function PropertyList() {
     const images = [
@@ -48,23 +49,25 @@ function PropertyList() {
                         </MenuItem>
                     </Select>
                 </FormControl>
-                <div className="pa2">
-                    <input 
-                      className="search-bar"
-                      type = "search" 
-                      placeholder = "Search Places" 
+                <Form className="d-flex">
+                    <Form.Control
+                      type="search"
+                      placeholder="Search"
+                      className="me-2"
+                      aria-label="Search Places"
                     />
-                </div>
-                <Link to={'/propertyOwner/addProperty'} style={{textDecoration:'none', color:'black', cursor:'pointer', marginTop:'2vh'}}>
+                    <Button variant="outline-success">Search</Button>
+                </Form>
+                {/* <Link to={'/propertyOwner/addProperty'} style={{textDecoration:'none', color:'black', cursor:'pointer', marginTop:'2vh'}}>
                     <AddCircleOutlineIcon/>
                     Add a Property
-                </Link>
+                </Link> */}
             </Stack>
             <Typography sx={{
                 color:'#26626A', 
                 fontSize:'x-large', 
                 fontWeight:'bolder', 
-                marginBottom:'2vh', 
+                marginBottom:'3vh', 
                 marginTop:'5vh', 
                 alignContent:'center'
             }}>
