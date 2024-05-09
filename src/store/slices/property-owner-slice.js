@@ -1,12 +1,12 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {api} from "../../api"
 
-const travellerSlice = createSlice({
-    name : "traveller",
+const propertyOwnerSlice = createSlice({
+    name : "propertyOwner",
     initialState: {
-        traveller : {},
-        loggedIn : !!localStorage.getItem('traveller'),
-        localStorage : localStorage.getItem('traveller') ? JSON.parse(localStorage.getItem('traveller')) : {},
+        propertyOwner : {},
+        loggedIn : !!localStorage.getItem('propertyOwner'),
+        localStorage : localStorage.getItem('propertyOwner') ? JSON.parse(localStorage.getItem('propertyOwner')) : {},
         errors : {
             login : '',
             register: ''
@@ -30,12 +30,12 @@ const travellerSlice = createSlice({
         builder.addCase(login.fulfilled, (state, action) => {
             if (action.payload.statusFlag === 'success') {
                 state.loggedIn = true;
-                state.localStorage = action.payload.traveller;
-                localStorage.setItem('traveller', JSON.stringify(action.payload.traveller));
+                state.localStorage = action.payload.propertyOwner;
+                localStorage.setItem('propertyOwner', JSON.stringify(action.payload.propertyOwner));
                 state.message.login = action.payload.message;
                 state.errors.login = {};
                 setTimeout(() => {
-                    window.location.href = '/traveller/explore';
+                    window.location.href = '/propertyOwner/profile';
                 }, 1500);
             } else {
                 state.errors.login = action.payload.errors;
@@ -54,17 +54,37 @@ const travellerSlice = createSlice({
     }
 })
 
-export const {logout} = travellerSlice.actions
-export default travellerSlice.reducer
+export const {logout} = propertyOwnerSlice.actions
+export default propertyOwnerSlice.reducer
 
 export const login = createAsyncThunk(
-    'traveller/login',
+    'propertyOwner/login',
     async (formData) => {
-        return api.post('/travellers/login-traveller', formData).then((response) => {
+        return api.post('/property-owners/login-property-owner', formData).then((response) => {
+            console.log(response);
             return {
                 statusFlag: 'success',
                 message: response.data.message,
-                traveller: response.data.data
+                propertyOwner: response.data.data
+            };
+        }).catch((error) => {
+            console.log(error);
+            return {
+                statusFlag: 'error',
+                errors: error.response.data.message
+            };
+        })
+    }
+)
+
+export const register = createAsyncThunk(
+    'propertyOwner/register',
+    async (formData) => {
+        return api.post('/property-owners/register-property-owner', formData).then((response) => {
+            return {
+                statusFlag: 'success',
+                message: response.data.message,
+                propertyOwner: response.data.data
             };
         }).catch((error) => {
             return {
@@ -75,14 +95,14 @@ export const login = createAsyncThunk(
     }
 )
 
-export const register = createAsyncThunk(
-    'traveller/register',
+export const addProperty = createAsyncThunk(
+    'propertyOwner/add',
     async (formData) => {
-        return api.post('/travellers/register-traveller', formData).then((response) => {
+        return api.post('/property-owners/add-property', formData).then((response) => {
             return {
                 statusFlag: 'success',
                 message: response.data.message,
-                traveller: response.data.data
+                propertyOwner: response.data.data
             };
         }).catch((error) => {
             return {

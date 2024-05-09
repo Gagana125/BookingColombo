@@ -3,6 +3,7 @@ import { Button, Container, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function CustomTabButton({ label, isActive, onClick }) {
@@ -22,6 +23,10 @@ function CustomTabButton({ label, isActive, onClick }) {
 }
 
 function ExploreMore() {
+    const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
+    if(!propertyOwnerIsLoggedIn) {
+        window.location.href = '/auth/loginprop';
+    }
     const [activeTab, setActiveTab] = useState("hotel");
 
     const handleTabChange = (tab) => {

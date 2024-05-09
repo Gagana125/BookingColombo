@@ -1,8 +1,13 @@
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Form } from "react-router-dom";
 
 function BookingDetails() {
+    const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
+    if(!travellerIsLoggedIn) {
+        window.location.href = '/auth/login';
+    }
     return(
         <Container>
             <Typography sx={{color:'#26626A', fontSize:'x-large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>

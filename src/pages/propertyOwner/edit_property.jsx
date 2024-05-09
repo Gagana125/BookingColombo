@@ -2,8 +2,13 @@ import { Button, Container, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import DeleteDialog from "../../components/delete_dialog";
+import { useSelector } from "react-redux";
 
 function EditProperty(){
+    const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
+    if(!propertyOwnerIsLoggedIn) {
+        window.location.href = '/auth/loginprop';
+    }
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const handleDeleteDialogOpen = () => {

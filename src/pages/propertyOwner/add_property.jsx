@@ -1,8 +1,34 @@
 import { Button, Container, Stack, Typography } from "@mui/material";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function AddProperty(){
+    const dispatch = useDispatch();
+    const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
+    if(!propertyOwnerIsLoggedIn) {
+        window.location.href = '/auth/loginprop';
+    }
+    const [formData, setFormData] = React.useState({
+        Type : '',
+        RoomDetails : '',
+        price : '',
+        FacilityDetails : '',
+        Images : 'hhh',
+        Location : ''
+    });
+
+    const handleChange = (e) => {
+        setFormData((state) => ({
+            ...state,
+            [e.target.name] : e.target.value
+        }))
+    }
+
+    const handleSubmit = () => {
+        console.log(formData);
+        // dispatch(register(formData));
+    }
     return(
         <Container>
             <Stack direction='row' justifyContent='space-between'>
@@ -34,21 +60,22 @@ function AddProperty(){
                     </Typography>
                     <form>
                         <label className="property-form-label">SELECT THE TYPE OF PROPERTY</label>
-                        <select className="property-form-dropdown">
-                            <option selected>Category</option>
+                        <select className="property-form-dropdown" name="Type" value={formData.Type}>
+                            {/* <option >Category</option> */}
                             <option>HOTEL</option>
                             <option>RESTAURANTS</option>
+                            <option >BOUTIQUES</option>
                         </select>
                         <label className="property-form-label">ROOM DETAILS</label>
-                        <textarea className="property-form-textarea" name="" id="" cols="50" rows="4"></textarea>
+                        <textarea className="property-form-textarea" name="RoomDetails" value={formData.RoomDetails} id="" cols="50" rows="4"></textarea>
                         <label className="property-form-label">PRICE PER NIGHT</label>
-                        <input className="property-form-text" type="text" />
+                        <input className="property-form-text" type="text" name="price" value={formData.price} />
                         <label className="property-form-label">PROPERTY FACILITY DETAILS</label>
-                        <textarea className="property-form-textarea" name="" id="" cols="50" rows="4"></textarea>
+                        <textarea className="property-form-textarea" name="FacilityDetails" value={formData.FacilityDetails} id="" cols="50" rows="4"></textarea>
                         <label className="property-form-label">ADD PROPERTY IMAGES</label>
                         <input type="file" name="property-images" id="" />
                         <label className="property-form-label">ADD PROPERTY LOCATION</label>
-                        <input className="property-form-text" type="text" />
+                        <input className="property-form-text" type="text" name="Location" value={formData.Location} />
                         <Stack direction='row' justifyContent='space-around'>
                             <Button
                                 sx={{ 
@@ -60,6 +87,7 @@ function AddProperty(){
                                     marginTop:'5vh',
                                     marginRight:'5vw'
                                 }}
+                                onClick={handleSubmit}
                             >
                                 <Link to={'/propertyOwner/viewProperty'} style={{textDecoration:'none', color:'white'}}>ADD PROPERTY</Link>
 

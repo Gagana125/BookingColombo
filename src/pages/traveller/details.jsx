@@ -4,8 +4,13 @@ import { Button, Container, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ViewDetails() {
+    const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
+    if(!travellerIsLoggedIn) {
+        window.location.href = '/auth/login';
+    }
     const images = [
         '/a.jfif',
         '/b.jfif',

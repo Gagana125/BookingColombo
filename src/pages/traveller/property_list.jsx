@@ -4,8 +4,13 @@ import React, { useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 function PropertyList() {
+    const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
+    if(!travellerIsLoggedIn) {
+        window.location.href = '/auth/login';
+    }
     const images = [
         '/1.jpeg',
         '/2.jpg',
