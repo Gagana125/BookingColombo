@@ -93,3 +93,22 @@ export const register = createAsyncThunk(
     }
 )
 
+export const getTraveller = createAsyncThunk(
+    "propertyOwner/getTraveller",
+    async (id) => {
+      return api
+        .get(`/travellers/get-traveller/${id}`)
+        .then((response) => {
+          return {
+            statusFlag: "success",
+            propertyOwner: response.data.data
+          };
+        })
+        .catch((error) => {
+          return {
+            statusFlag: "error",
+            errors: error.response.data.message
+          };
+        });
+    }
+);

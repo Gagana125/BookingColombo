@@ -113,3 +113,23 @@ export const addProperty = createAsyncThunk(
     }
 )
 
+export const getPropertyOwner = createAsyncThunk(
+    "propertyOwner/getPropertyOwner",
+    async (id) => {
+      return api
+        .get(`/property-owners/get-property-owner/${id}`)
+        .then((response) => {
+          return {
+            statusFlag: "success",
+            propertyOwner: response.data.data
+          };
+        })
+        .catch((error) => {
+          return {
+            statusFlag: "error",
+            errors: error.response.data.message
+          };
+        });
+    }
+);
+
