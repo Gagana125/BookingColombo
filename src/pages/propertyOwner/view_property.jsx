@@ -1,12 +1,18 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { Button, Container, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getProperties } from "../../store/slices/property-slice";
 
 function ViewProperty() {
     const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
+    const dispatch = useDispatch();
+    const propertyOwner = useSelector((state) => state.propertyOwner.localStorage);
+    const properties = useSelector((state) => state.property.properties);
+    console.log(properties);
+
     if(!propertyOwnerIsLoggedIn) {
         window.location.href = '/auth/loginprop';
     }
@@ -17,6 +23,10 @@ function ViewProperty() {
         '/d.jfif',
         '/e.jfif',
     ];
+
+    useEffect(() => {
+        dispatch(getProperties(propertyOwner.id));
+    },[dispatch])
 
     const [currentIndex, setCurrentIndex] = useState(0);
 

@@ -5,19 +5,13 @@ import DeleteDialog from "../../components/delete_dialog";
 import { Link } from "react-router-dom";
 import ReportDialog from "../../components/report_dialog";
 import { useSelector } from "react-redux";
-import { getPropertyOwner } from "../../store/slices/property-owner-slice";
 
 function OwnerProfile() {
     const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
     if(!propertyOwnerIsLoggedIn) {
         window.location.href = '/auth/loginprop';
     }
-    const propertyOwner = useSelector((state) => state.propertyOwner.propertyOwner);
-
-    useEffect(() => {
-        console.log("hi",propertyOwner);
-        // dispatch(getPropertyOwner(id)); 
-    }, []);
+    const propertyOwner = useSelector((state) => state.propertyOwner.localStorage);
 
     const [showPassword, setShowPassword] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
