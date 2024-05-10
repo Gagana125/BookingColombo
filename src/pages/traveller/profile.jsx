@@ -35,7 +35,7 @@ function Profile() {
     return(
         <Container>
             <Stack direction='row' justifyContent='space-between' marginTop='3vh' marginLeft='15vw'>
-                <img className="profile-image" src="/woman.avif" alt="" />
+                <img className={'object-cover profile-image mt-10'} src="/woman.avif" alt="" />
                 <Stack direction='column'>
                     <Typography sx={{color:'#26626A', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh'}}>RACHEL KAREN GREEN</Typography>
                     <Stack direction='row' width='30vw' justifyContent='space-between'>

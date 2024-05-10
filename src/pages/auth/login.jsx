@@ -85,7 +85,6 @@ function Login() {
                     </FormControl>
                     <Stack direction='column' justifyContent='center' alignItems='center'>
                         <Button sx={{borderRadius:'15px', backgroundColor:'#A15D48', color:'white', width:'6vw', alignContent:'center', justifyContent:'center', marginTop:'5vh'}} onClick={handleLogin}>Login</Button>
-
                         <Typography style={{fontSize:'small', marginBottom:'10vh'}}>FORGOT YOUR PASSWORD? <Link style={{color:'red', textDecoration:'none', cursor:'pointer'}}>RESET PASSWORD</Link></Typography>
                     </Stack>
                     

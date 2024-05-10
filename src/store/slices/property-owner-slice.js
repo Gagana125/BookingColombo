@@ -9,11 +9,13 @@ const propertyOwnerSlice = createSlice({
         localStorage : localStorage.getItem('propertyOwner') ? JSON.parse(localStorage.getItem('propertyOwner')) : {},
         errors : {
             login : '',
-            register: ''
+            register: '',
+            addProperty: ''
         },
         message : {
             login : '',
-            register: ''
+            register: '',
+            addProperty: ''
         }
     },
     reducers : {
@@ -49,6 +51,13 @@ const propertyOwnerSlice = createSlice({
                 }, 1500);
             } else {
                 state.errors.register = action.payload.errors;
+            }
+        }).addCase(addProperty.fulfilled, (state, action) => {
+            if (action.payload.statusFlag === 'success') {
+                state.message.addProperty = action.payload.message;
+                window.location.reload();
+            }else{
+                state.errors.addProperty = action.payload.errors;
             }
         })
     }
@@ -98,13 +107,19 @@ export const register = createAsyncThunk(
 export const addProperty = createAsyncThunk(
     'propertyOwner/add',
     async (formData) => {
-        return api.post('/property-owners/add-property', formData).then((response) => {
+        return api.post('/property-owners/add-property', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then((response) => {
+            console.log(response);
             return {
                 statusFlag: 'success',
                 message: response.data.message,
                 propertyOwner: response.data.data
             };
         }).catch((error) => {
+            console.log(error);
             return {
                 statusFlag: 'error',
                 errors: error.response.data.message
