@@ -26,6 +26,7 @@ function SignUp() {
     }
 
     const handleRegistration = () => {
+        // console.log(formData);
         dispatch(register(formData));
     }
 

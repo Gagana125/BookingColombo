@@ -5,8 +5,13 @@ import { Link } from "react-router-dom";
 import Rating from '@mui/material/Rating';
 import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
 import ReviewDialog from "../../components/review_dialog";
+import { useSelector } from "react-redux";
 
 function Category() {
+    const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
+    if(!travellerIsLoggedIn) {
+        window.location.href = '/auth/login';
+    }
     const [value, setValue] = useState(2);
     const [showReviewBox, setShowReviewBox] = useState(false);
     const [reviewContent, setReviewContent] = useState('');

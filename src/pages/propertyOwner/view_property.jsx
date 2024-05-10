@@ -2,9 +2,14 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function ViewProperty() {
+    const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
+    if(!propertyOwnerIsLoggedIn) {
+        window.location.href = '/auth/loginprop';
+    }
     const images = [
         '/a.jfif',
         '/b.jfif',

@@ -4,8 +4,13 @@ import React, {useState} from "react";
 import DeleteDialog from "../../components/delete_dialog";
 import { Link } from "react-router-dom";
 import ReportDialog from "../../components/report_dialog";
+import { useSelector } from "react-redux";
 
 function OwnerProfile() {
+    const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
+    if(!propertyOwnerIsLoggedIn) {
+        window.location.href = '/auth/loginprop';
+    }
     const [showPassword, setShowPassword] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [reportDialogOpen, setReportDialogOpen] = useState(false);

@@ -3,8 +3,13 @@ import { Button, Container, Divider, FormControl, IconButton, InputAdornment, Ou
 import React, {useState} from "react";
 import DeleteDialog from "../../components/delete_dialog";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Profile() {
+    const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
+    if(!travellerIsLoggedIn) {
+        window.location.href = '/auth/login';
+    }
     const [showPassword, setShowPassword] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
