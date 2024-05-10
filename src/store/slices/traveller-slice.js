@@ -35,7 +35,7 @@ const travellerSlice = createSlice({
                 state.message.login = action.payload.message;
                 state.errors.login = {};
                 setTimeout(() => {
-                    window.location.href = '/';
+                    window.location.href = '/traveller/explore';
                 }, 1500);
             } else {
                 state.errors.login = action.payload.errors;

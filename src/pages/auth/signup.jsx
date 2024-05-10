@@ -26,8 +26,7 @@ function SignUp() {
     }
 
     const handleRegistration = () => {
-        console.log(formData);
-        // dispatch(register(formData));
+        dispatch(register(formData));
     }
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
