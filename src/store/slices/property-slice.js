@@ -5,11 +5,18 @@ const propertySlice = createSlice({
     name : "property",
     initialState: {
         properties : [],
+        property : {},
         errors : {
             getProperties : '',
+            getProperty : '',
+            updateProperty : '',
+            deleteProperty : ''
         },
         message : {
             getProperties : '',
+            getProperty : '',
+            updateProperty : '',
+            deleteProperty : ''
         }
     },
     reducers : {
@@ -23,6 +30,32 @@ const propertySlice = createSlice({
             } else{
                 state.message.getProperties = '';
                 state.errors.getProperties = action.payload.errors;
+            }
+        }).addCase(getProperty.fulfilled,(state, action) => {
+            if(action.payload.statusFlag === 'success'){
+                state.property = action.payload.property;
+                state.errors.getProperty = '';
+                state.message.getProperty = action.payload.message;
+            } else{
+                state.message.getProperty = '';
+                state.errors.getProperty = action.payload.errors;
+            }
+        }).addCase(updateProperty.fulfilled,(state, action) => {
+            if(action.payload.statusFlag === 'success'){
+                state.errors.updateProperty = '';
+                state.message.updateProperty = action.payload.message;
+            } else{
+                state.message.updateProperty = '';
+                state.errors.updateProperty = action.payload.errors;
+            }
+        }).addCase(deleteProperty.fulfilled,(state, action) => {
+            if(action.payload.statusFlag === 'success'){
+                state.errors.deleteProperty = '';
+                state.message.deleteProperty = action.payload.message;
+                window.location.href = '/propertyOwner/profile';
+            } else{
+                state.message.deleteProperty = '';
+                state.errors.deleteProperty = action.payload.errors;
             }
         })
     }
@@ -45,6 +78,73 @@ export const getProperties = createAsyncThunk(
         })
         .catch((error) => {
             // console.log(error);
+          return {
+            statusFlag: "error",
+            errors: error.response.data.message
+          };
+        });
+    }
+);
+
+export const getProperty = createAsyncThunk(
+    "propertyOwner/getProperty",
+    async (id) => {
+      return api
+        .get(`/property/get-property/${id}`)
+        .then((response) => {
+            console.log(response);
+          return {
+            statusFlag: "success",
+            message: response.data.message,
+            property: response.data.data
+          };
+        })
+        .catch((error) => {
+            // console.log(error);
+          return {
+            statusFlag: "error",
+            errors: error.response.data.message
+          };
+        });
+    }
+);
+
+export const updateProperty = createAsyncThunk(
+    "propertyOwner/updateProperty",
+    async (formData) => {
+      return api
+        .put(`/property/update-property`, formData)
+        .then((response) => {
+            console.log(response);
+          return {
+            statusFlag: "success",
+            message: response.data.message
+          };
+        })
+        .catch((error) => {
+            console.log(error);
+          return {
+            statusFlag: "error",
+            errors: error.response.data.message
+          };
+        });
+    }
+);
+
+export const deleteProperty = createAsyncThunk(
+    "propertyOwner/deleteProperty",
+    async (id) => {
+      return api
+        .delete(`/property/delete-property/${id}`)
+        .then((response) => {
+            console.log(response);
+          return {
+            statusFlag: "success",
+            message: response.data.message
+          };
+        })
+        .catch((error) => {
+            console.log(error);
           return {
             statusFlag: "error",
             errors: error.response.data.message

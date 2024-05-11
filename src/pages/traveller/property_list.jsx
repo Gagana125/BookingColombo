@@ -8,7 +8,8 @@ import { useSelector } from "react-redux";
 
 function PropertyList() {
     const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
-    if(!travellerIsLoggedIn) {
+    const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
+    if(!travellerIsLoggedIn && !propertyOwnerIsLoggedIn) {
         window.location.href = '/auth/login';
     }
     const images = [

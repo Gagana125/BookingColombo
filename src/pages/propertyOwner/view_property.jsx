@@ -16,13 +16,7 @@ function ViewProperty() {
     if(!propertyOwnerIsLoggedIn) {
         window.location.href = '/auth/loginprop';
     }
-    const images = [
-        '/a.jfif',
-        '/b.jfif',
-        '/c.jfif',
-        '/d.jfif',
-        '/e.jfif',
-    ];
+    const images = [];
 
     useEffect(() => {
         dispatch(getProperties(propertyOwner.id));
@@ -58,63 +52,85 @@ function ViewProperty() {
                     <Button variant="outline-success">Search</Button>
                 </Form>
                 </Stack>
-                <Stack direction='row' justifyContent='flex-start' alignItems='start'>
-                    <Typography sx={{color:'#26626A', fontSize:'medium', fontWeight:'bold', marginBottom:'1vh',}}>Property ID: </Typography>
-                    <Typography sx={{color:'#26626A', fontSize:'medium', fontWeight:'bold', marginBottom:'1vh',}}>H001</Typography>
-                </Stack>
-                <div className="image-slider">
-                    <div className="slider-images">
-                        <div className="image-container">
-                          <img src={images[prevIndex]} alt="Previous" className="prev-image" />
-                          <KeyboardArrowLeft className="arrow left-arrow" onClick={goToPrev} style={{color:'black'}} />
-                        </div>
-                        <img src={images[currentIndex]} alt="Current" className="current-image" />
-                        <div className="image-container">
-                          <KeyboardArrowRight className="arrow right-arrow" onClick={goToNext} style={{color:'black'}}/> 
-                          <img src={images[nextIndex]} alt="Next" className="next-image" />
-                        </div>
-                    </div>
-                </div>
-                <Typography sx={{color:'#77A6AC', fontSize:'large', fontWeight:'bolder', marginLeft:'5vw'}}>
-                    Family Room, Deluxe hot water, Beach view, Attached bathroom, Fully Air Conditioned
-                </Typography>
-                <Typography sx={{color:'#CAB1AA', fontSize:'large', fontWeight:'bolder', marginLeft:'5vw'}}>
-                    Free wifi, Swimming pool facilities, Restaurant, Bar, Parking available, Beach access
-                </Typography>
-                
-                <Stack direction='row' justifyContent='flex-start' alignItems='start' marginTop='2vh'>
-                    <Typography sx={{color:'#A15D48', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginLeft:'5vw'}}>Price per night: </Typography>
-                    <Typography sx={{color:'#A15D48', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginLeft:'5vw'}}>Rs. 10, 000</Typography>
-                </Stack>
-                <Stack direction='row' justifyContent='space-around'>
-                    <Button 
-                        sx={{ 
-                            backgroundColor:'#A15D48', 
-                            color:'white', 
-                            width:'10vw', 
-                            alignContent:'center', 
-                            justifyContent:'center', 
-                            marginTop:'5vh',
-                            marginRight:'5vw',
-                            marginBottom:'3vh'
-                        }}
-                    >
-                            <Link to={'/propertyOwner/editProperty'} style={{textDecoration:'none', color:'white'}}>EDIT PROPERTY</Link>
-                    </Button>
-                    <Button 
-                        sx={{ 
-                            backgroundColor:'#A15D48', 
-                            color:'white', 
-                            width:'10vw', 
-                            alignContent:'center', 
-                            justifyContent:'center', 
-                            marginTop:'5vh',
-                            marginBottom:'3vh'
-                        }}
-                    >
-                            <Link to={'/traveller/property'} style={{textDecoration:'none', color:'white'}}>CHECK BOOKINGS</Link>
-                    </Button>
-                </Stack>
+                {
+                    properties.length > 0 ? properties.map((property,index) => {
+                        property.images.map((image) => {
+                            images.push(image.image);
+                        })
+                        return (
+                            <div key={index}>
+                                <Stack direction='row' justifyContent='flex-start' alignItems='start'>
+                                    <Typography sx={{color:'#26626A', fontSize:'medium', fontWeight:'bold', marginBottom:'1vh',}}>Property ID: </Typography>
+                                    <Typography sx={{color:'#26626A', fontSize:'medium', fontWeight:'bold', marginBottom:'1vh',}}>{property.propertyCode}</Typography>
+                                </Stack>
+                                <div className="image-slider">
+                                    <div className="slider-images">
+                                        {
+                                            images.length > 1 ?
+                                                <div className="image-container">
+                                                    <img src={'http://localhost:3000/'+images[prevIndex]} alt="Previous" className="prev-image" />
+                                                    <KeyboardArrowLeft className="arrow left-arrow" onClick={goToPrev} style={{color:'black'}} />
+                                                </div> : <div></div>
+                                        }
+                                        <img src={'http://localhost:3000/'+images[currentIndex]} alt="Current" className="current-image" />
+                                        {
+                                            images.length > 2 ?
+                                                <div className="image-container">
+                                                    <KeyboardArrowRight className="arrow right-arrow" onClick={goToNext} style={{color:'black'}}/>
+                                                    <img src={'http://localhost:3000/'+images[nextIndex]} alt="Next" className="next-image" />
+                                                </div> : <div></div>
+                                        }
+                                    </div>
+                                </div>
+                                <Typography sx={{color:'#77A6AC', fontSize:'large', fontWeight:'bolder', marginLeft:'5vw'}}>
+                                    {
+                                        property.roomDetails
+                                    }
+                                </Typography>
+                                <Typography sx={{color:'#CAB1AA', fontSize:'large', fontWeight:'bolder', marginLeft:'5vw'}}>
+                                    {
+                                        property.facilityDetails
+                                    }
+                                </Typography>
+
+                                <Stack direction='row' justifyContent='flex-start' alignItems='start' marginTop='2vh'>
+                                    <Typography sx={{color:'#A15D48', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginLeft:'5vw'}}>Price per night: </Typography>
+                                    <Typography sx={{color:'#A15D48', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginLeft:'5vw'}}>Rs. {property.price}</Typography>
+                                </Stack>
+                                <Stack direction='row' justifyContent='space-around'>
+                                    <Button
+                                        sx={{
+                                            backgroundColor:'#A15D48',
+                                            color:'white',
+                                            width:'10vw',
+                                            alignContent:'center',
+                                            justifyContent:'center',
+                                            marginTop:'5vh',
+                                            marginRight:'5vw',
+                                            marginBottom:'3vh'
+                                        }}
+                                    >
+                                        <Link to={'/propertyOwner/editProperty/'+property.propertyCode} style={{textDecoration:'none', color:'white'}}>EDIT PROPERTY</Link>
+                                    </Button>
+                                    <Button
+                                        sx={{
+                                            backgroundColor:'#A15D48',
+                                            color:'white',
+                                            width:'10vw',
+                                            alignContent:'center',
+                                            justifyContent:'center',
+                                            marginTop:'5vh',
+                                            marginBottom:'3vh'
+                                        }}
+                                    >
+                                        <Link to={'/traveller/property'} style={{textDecoration:'none', color:'white'}}>CHECK BOOKINGS</Link>
+                                    </Button>
+                                </Stack>
+                            </div>
+                        )
+                    }) : <Typography sx={{color:'#26626A', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>No properties found</Typography>
+                }
+
                 
             </Stack>
         </Container>
