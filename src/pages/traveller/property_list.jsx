@@ -1,18 +1,71 @@
 import { Button, Container, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from "react-router-dom";
-import { Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import Rating from '@mui/material/Rating';
+import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
+import ReviewDialog from "../../components/review_dialog";
+import { useDispatch, useSelector } from "react-redux";
+import { getPlaces } from "../../store/slices/place-slice";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 
 function PropertyList() {
     const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
     const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
     const adminIsLoggedIn = useSelector((state)=>state.admin.loggedIn);
-    if(!travellerIsLoggedIn && !propertyOwnerIsLoggedIn && !adminIsLoggedIn) {
-        window.location.href = '/auth/login';
-    }
+    const allPlaces = useSelector((state) => state.place.places);
+    const dispatch = useDispatch();
+    const [filteredPlaces, setFilteredPlaces] = useState([]); // State to store filtered places
+    const [selectedCategory, setSelectedCategory] = useState(""); // State to store selected category
+    const [showReviewBoxes, setShowReviewBoxes] = useState({});
+    const [reviewContent, setReviewContent] = useState('');
+    const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+
+    const handleReviewClick = (placeId) => {
+        setShowReviewBoxes(prevState => ({
+            ...prevState,
+            [placeId]: !prevState[placeId] // Toggle the state for the clicked place
+        }));
+    };
+    
+
+    const handleReviewSubmit = (placeId) => {
+        console.log('Review submitted:', reviewContent);
+        setReviewContent('');
+        setShowReviewBoxes(prevState => ({
+            ...prevState,
+            [placeId]: false // Set the review box state for the specific place to false
+        }));
+    };
+    
+
+    const handleReviewDialogOpen = () => {
+        console.log('hi');
+        setReviewDialogOpen(true);
+      };
+    
+      const handleReviewDialogClose = () => {
+        setReviewDialogOpen(false);
+      };
+
+    useEffect(() => {
+        dispatch(getPlaces());
+    }, [dispatch]);
+
+    // Function to handle category selection change
+    const handleCategoryChange = (event) => {
+        const category = event.target.value;
+        setSelectedCategory(category);
+        // Filter places based on selected category
+        if (category) {
+            const filteredPlaces = allPlaces.filter(place => place.category.toLowerCase() === category.toLowerCase());
+            setFilteredPlaces(filteredPlaces);
+        } else {
+            // If no category selected, show all places
+            setFilteredPlaces([]);
+        }
+    };
+
     const images = [
         '/1.jpeg',
         '/2.jpg',
@@ -22,25 +75,24 @@ function PropertyList() {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
-
     const prevIndex = (currentIndex - 1 + images.length) % images.length;
     const nextIndex = (currentIndex + 1) % images.length;
 
     const goToPrev = () => {
-      setCurrentIndex(prevIndex);
+        setCurrentIndex(prevIndex);
     };
 
     const goToNext = () => {
-      setCurrentIndex(nextIndex);
+        setCurrentIndex(nextIndex);
     };
 
     return(
         <Container>
             {
-                adminIsLoggedIn ?
-                    <div>
-                        <Link to={'/admin/addPlace'}><button className={"mt-5 rounded border-0 py-2 px-5"}>Add Places</button></Link>
-                    </div> : <div></div>
+                adminIsLoggedIn &&
+                <div>
+                    <Link to={'/admin/addPlace'}><button backgroundColor='#A15D48' className={"mt-5 rounded border-0 py-2 px-5"}>Add Places</button></Link>
+                </div>
             }
             <Stack direction='row' justifyContent='space-around' marginTop='5vh' alignItems='center'>
                 <Typography sx={{color:'#26626A', fontSize:'x-large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>Category</Typography>
@@ -51,54 +103,108 @@ function PropertyList() {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        // value={age}
+                        value={selectedCategory}
+                        onChange={handleCategoryChange}
                         label="Categories"
                     >
-                        <MenuItem>
-                            <Link to={'/traveller/category'} style={{textDecoration:'none', color:'black'}}>Coffee Shops</Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Typography>Kovils</Typography>
-                        </MenuItem>
+                        <MenuItem value="Coffee Shops">COFFEE SHOP</MenuItem>
+                        <MenuItem value="Cafes">CAFE</MenuItem>
+                        <MenuItem value="Kovils">KOVIL</MenuItem>
                     </Select>
                 </FormControl>
-                <Form className="d-flex">
-                    <Form.Control
-                      type="search"
-                      placeholder="Search"
-                      className="me-2"
-                      aria-label="Search Places"
+                <div className="pa2">
+                    <input 
+                      className="search-bar"
+                      type = "search" 
+                      placeholder = "Search Places" 
                     />
-                    <Button variant="outline-success">Search</Button>
-                </Form>
-                {/* <Link to={'/propertyOwner/addProperty'} style={{textDecoration:'none', color:'black', cursor:'pointer', marginTop:'2vh'}}>
-                    <AddCircleOutlineIcon/>
-                    Add a Property
-                </Link> */}
-            </Stack>
-            <Typography sx={{
-                color:'#26626A', 
-                fontSize:'x-large', 
-                fontWeight:'bolder', 
-                marginBottom:'3vh', 
-                marginTop:'5vh', 
-                alignContent:'center'
-            }}>
-                Travel Destinations
-            </Typography>
-            <div className="image-slider">
-                <div className="slider-images">
-                    <div className="image-container">
-                      <img src={images[prevIndex]} alt="Previous" className="prev-image" />
-                      <KeyboardArrowLeft className="arrow left-arrow" onClick={goToPrev} style={{color:'black'}} />
-                    </div>
-                    <img src={images[currentIndex]} alt="Current" className="current-image" />
-                    <div className="image-container">
-                      <KeyboardArrowRight className="arrow right-arrow" onClick={goToNext} style={{color:'black'}}/> 
-                      <img src={images[nextIndex]} alt="Next" className="next-image" />
-                    </div>
                 </div>
-            </div>
+            </Stack>
+            {selectedCategory ? (
+                <Container>
+                    <Typography sx={{
+                        color:'#26626A', 
+                        fontSize:'x-large', 
+                        fontWeight:'bolder', 
+                        marginBottom:'2vh', 
+                        marginTop:'5vh', 
+                        alignContent:'center'
+                    }}>
+                        {selectedCategory.toUpperCase()}
+                    </Typography>
+                    <Stack direction='row' justifyContent='space-around'>
+                        {/* Render cards for filtered places */}
+                        {filteredPlaces.map(place => (
+                            <div key={place.id} className="category-card">
+                                {/* Render card content */}
+                                {console.log(place)}
+                                <img className="category-image" src={place.images} alt={place.name} />
+                                <Typography>{place.name}</Typography>
+                                {/* <Typography>{place.reviews} reviews</Typography> */}
+                                <Typography>{place.description}</Typography>
+                                <Typography>Open: {place.openTime}</Typography>
+                                <Typography>Close: {place.closingTime}</Typography>
+                                <Typography>Location: {place.location}</Typography>
+                                <Stack direction='row' justifyContent='space-between' width='15vw' marginBottom='3vh'>
+                                    <Rating
+                                        name="simple-controlled"
+                                        // value={value}
+                                        onChange={(event, newValue) => {
+                                            setValue(newValue);
+                                        }}
+                                    />
+                                    <MapsUgcOutlinedIcon onClick={() => handleReviewClick(place.id)} />
+                                </Stack>
+                                {showReviewBoxes[place.id] && ( // Check if review box should be shown for this place
+                                    <>
+                                        <textarea
+                                            value={reviewContent}
+                                            onChange={(e) => setReviewContent(e.target.value)}
+                                            placeholder="Write your review..."
+                                            rows="5"
+                                            style={{ width: '100%', marginTop: '1rem', backgroundColor:'#77A6AC', color:'white', marginBottom:'3px' }}
+                                        />
+                                        <Button onClick={() => handleReviewSubmit(place.id)} variant="contained" style={{backgroundColor:'#A15D48', marginBottom:'3vh'}}>Submit Review</Button>
+                                    </>
+                                )}
+                                <Button variant="outlined" onClick={handleReviewDialogOpen} style={{marginBottom:'10vh'}}>
+                                    Reviews
+                                </Button>
+                                <ReviewDialog 
+                                    open={reviewDialogOpen}
+                                    onClose={handleReviewDialogClose}
+                                />
+                            </div>
+                        ))}
+                    </Stack>
+                </Container>
+            ) : (
+                <Container>
+                    <Typography sx={{
+                        color:'#26626A', 
+                        fontSize:'x-large', 
+                        fontWeight:'bolder', 
+                        marginBottom:'3vh', 
+                        marginTop:'5vh', 
+                        alignContent:'center'
+                    }}>
+                        Travel Destinations
+                    </Typography>
+                    <div className="image-slider">
+                        <div className="slider-images">
+                            <div className="image-container">
+                                <img src={images[prevIndex]} alt="Previous" className="prev-image" />
+                                <KeyboardArrowLeft className="arrow left-arrow" onClick={goToPrev} style={{color:'black'}} />
+                            </div>
+                            <img src={images[currentIndex]} alt="Current" className="current-image" />
+                            <div className="image-container">
+                                <KeyboardArrowRight className="arrow right-arrow" onClick={goToNext} style={{color:'black'}}/> 
+                                <img src={images[nextIndex]} alt="Next" className="next-image" />
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            )}
         </Container>
     )
 }

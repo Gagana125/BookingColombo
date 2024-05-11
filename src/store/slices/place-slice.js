@@ -108,6 +108,7 @@ export const getPlaces = createAsyncThunk(
     'place/getPlaces',
     async () => {
         return api.get('/admin/get-places').then(response => {
+            console.log(response);
             return {
                 places: response.data.data,
                 statusFlag: 'success',

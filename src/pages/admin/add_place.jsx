@@ -59,7 +59,7 @@ function AddPlace(){
                         justifyContent:'center', 
                         marginTop:'5vh'
                     }}>
-                        <Link to={'/traveller/property'} style={{textDecoration:'none', color:'white'}}>View Properties</Link>
+                        <Link to={'/traveller/property'} style={{textDecoration:'none', color:'white'}}>View Places</Link>
                     </Button>
                     <Typography sx={{fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>
                         Colombo Travel Destinations
