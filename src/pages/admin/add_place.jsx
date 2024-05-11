@@ -1,8 +1,51 @@
 import { Button, Container, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {addPlace} from "../../store/slices/place-slice.js";
 
 function AddPlace(){
+    const dispatch = useDispatch();
+    const [formData, setFormData] = React.useState({
+        category: '',
+        place: '',
+        opening_time: '',
+        closing_time: '',
+        description: '',
+        location: '',
+        images: []
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const handleImageUpload = (e) => {
+        setFormData({
+            ...formData,
+            images: e.target.files
+        });
+    }
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        let data = new FormData();
+
+        data.append('category', formData.category);
+        data.append('place', formData.place);
+        data.append('opening_time', formData.opening_time);
+        data.append('closing_time', formData.closing_time);
+        data.append('description', formData.description);
+        data.append('location', formData.location);
+        for (let i = 0; i < formData.images.length; i++) {
+            data.append('images', formData.images[i]);
+        }
+        dispatch(addPlace(data));
+    }
+
     return(
         <Container>
             <Stack direction='row' justifyContent='space-between'>
@@ -32,24 +75,24 @@ function AddPlace(){
                     </Typography>
                     <form>
                         <label className="property-form-label">CATEGORY</label>
-                        <select className="property-form-dropdown">
+                        <select className="property-form-dropdown" name={"category"} value={formData.category} onChange={handleChange}>
                             <option selected>Category</option>
                             <option>CAFES</option>
                             <option>COFFEE SHOPS</option>
                             <option>KOVIL</option>
                         </select>
                         <label className="property-form-label">NAME OF THE PLACE</label>
-                        <input className="property-form-text" type="text" />
+                        <input className="property-form-text" type="text" name={"place"} value={formData.place} onChange={handleChange}/>
                         <label className="property-form-label">OPENING TIME</label>
-                        <input className="property-form-text" type="time" />
+                        <input className="property-form-text" type="time" name={"opening_time"} value={formData.opening_time} onChange={handleChange}/>
                         <label className="property-form-label">CLOSING TIME</label>
-                        <input className="property-form-text" type="time" />
+                        <input className="property-form-text" type="time" name={"closing_time"} value={formData.closing_time} onChange={handleChange}/>
                         <label className="property-form-label">DESCRIPTION</label>
-                        <textarea className="property-form-text" name="" id="" cols="10" rows="5"></textarea>
+                        <textarea className="property-form-text" name="description" value={formData.description} id="" cols="10" rows="5" onChange={handleChange}></textarea>
                         <label className="property-form-label">UPLOAD IMAGES</label>
-                        <input type="file" name="property-images" id="" />
+                        <input type="file" id="" name={"images"} multiple onChange={handleImageUpload}/>
                         <label className="property-form-label">LOCATION</label>
-                        <input className="property-form-text" type="text" />
+                        <input className="property-form-text" type="text" name={"location"} value={formData.location} onChange={handleChange}/>
                         <Stack direction='row' justifyContent='space-around'>
                             <Button
                                 sx={{ 
@@ -61,6 +104,8 @@ function AddPlace(){
                                     marginTop:'5vh',
                                     marginRight:'5vw'
                                 }}
+
+                                onClick={submitForm}
                             >
                                 ADD PLACE
                             </Button>

@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 
 function Category() {
     const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
-    if(!travellerIsLoggedIn) {
+    const adminIsLoggedIn = useSelector((state)=>state.admin.loggedIn);
+    if(!travellerIsLoggedIn && !adminIsLoggedIn) {
         window.location.href = '/auth/login';
     }
     const [value, setValue] = useState(2);

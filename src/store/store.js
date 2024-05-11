@@ -3,6 +3,7 @@ import travellerSlice from "./slices/traveller-slice.js";
 import propertyOwnerSlice from "./slices/property-owner-slice.js";
 import propertySlice from "./slices/property-slice.js";
 import adminSlice from "./slices/admin-slice.js";
+import placeSlice from "./slices/place-slice.js";
 
 export default configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export default configureStore({
     traveller: travellerSlice,
     propertyOwner: propertyOwnerSlice,
     property: propertySlice,
-    admin : adminSlice
+    admin : adminSlice,
+    place : placeSlice,
   }
 })

@@ -24,7 +24,8 @@ function CustomTabButton({ label, isActive, onClick }) {
 
 function ExploreMore() {
     const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
-    if(!propertyOwnerIsLoggedIn) {
+    const adminIsLoggedIn = useSelector((state)=>state.admin.loggedIn);
+    if(!propertyOwnerIsLoggedIn && !adminIsLoggedIn){
         window.location.href = '/auth/loginprop';
     }
     const [activeTab, setActiveTab] = useState("hotel");
