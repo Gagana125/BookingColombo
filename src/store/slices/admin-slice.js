@@ -33,8 +33,8 @@ const adminSlice = createSlice({
                 state.message.login = action.payload.message;
                 state.errors.login = {};
                 setTimeout(() => {
-                    window.location.href = '/traveller/explore';
-                }, 1500);
+                    window.location.href = "/traveller/property";
+                }, 1000);
             } else {
                 state.errors.login = action.payload.errors;
             }
@@ -53,7 +53,7 @@ export const login = createAsyncThunk(
             return {
                 statusFlag: 'success',
                 message: response.data.message,
-                propertyOwner: response.data.data
+                admin: response.data.data
             };
         }).catch((error) => {
             console.log(error);

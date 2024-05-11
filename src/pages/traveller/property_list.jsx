@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 function PropertyList() {
     const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
     const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
-    if(!travellerIsLoggedIn && !propertyOwnerIsLoggedIn) {
+    const adminIsLoggedIn = useSelector((state)=>state.admin.loggedIn);
+    if(!travellerIsLoggedIn && !propertyOwnerIsLoggedIn && !adminIsLoggedIn) {
         window.location.href = '/auth/login';
     }
     const images = [
@@ -35,6 +36,12 @@ function PropertyList() {
 
     return(
         <Container>
+            {
+                adminIsLoggedIn ?
+                    <div>
+                        <Link to={'/admin/addPlace'}><button className={"mt-5 rounded border-0 py-2 px-5"}>Add Places</button></Link>
+                    </div> : <div></div>
+            }
             <Stack direction='row' justifyContent='space-around' marginTop='5vh' alignItems='center'>
                 <Typography sx={{color:'#26626A', fontSize:'x-large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>Category</Typography>
                 <FormControl sx={{ minWidth: '10vw' }}>
