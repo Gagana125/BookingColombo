@@ -29,6 +29,7 @@ import ExploreMore from "./pages/propertyOwner/explore_more";
 import ViewDetails from "./pages/traveller/details";
 import AdminLayout from "./layouts/admin_layout";
 import BookingDetails from "./pages/traveller/booking_details";
+import Reserve from "./pages/traveller/reserve";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -50,6 +51,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={"explore"} element={<Explore/>} />
       <Route path={"details"} element={<ViewDetails/>} />
       <Route path={"bookingDetails"} element={<BookingDetails/>} />
+      <Route path={"reserve"} element={<Reserve/>} />
     </Route>
     <Route path={"propertyOwner"} element={<PropertyOwnerLayout/>} >
       <Route path={"profile"} element={<OwnerProfile/>} />

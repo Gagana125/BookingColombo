@@ -10,6 +10,9 @@ function Profile() {
     if(!travellerIsLoggedIn) {
         window.location.href = '/auth/login';
     }
+
+    const traveller = useSelector((state) => state.traveller.localStorage);
+
     const [showPassword, setShowPassword] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
@@ -37,10 +40,12 @@ function Profile() {
             <Stack direction='row' justifyContent='space-between' marginTop='3vh' marginLeft='15vw'>
                 <img className={'object-cover profile-image mt-10'} src="/woman.avif" alt="" />
                 <Stack direction='column'>
-                    <Typography sx={{color:'#26626A', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh'}}>RACHEL KAREN GREEN</Typography>
+                    <Typography sx={{color:'#26626A', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh'}}>
+                        {traveller.firstName + traveller.lastName}
+                    </Typography>
                     <Stack direction='row' width='30vw' justifyContent='space-between'>
-                        <Typography>EMAIL : rachelgreen@gmail.com</Typography>
-                        <Typography>PHONE: +94 123456789</Typography>
+                        <Typography>EMAIL : {traveller.email}</Typography>
+                        <Typography>PHONE: {traveller.contact}</Typography>
                     </Stack>
                     <Divider style={{backgroundColor:'black', width:'40vw'}}></Divider>
                     <Stack direction='row' style={{marginTop:'2vh'}}>
@@ -71,7 +76,7 @@ function Profile() {
                     disabled
                     id="outlined-disabled"
                     label="First Name"
-                    defaultValue="Keren"
+                    defaultValue={traveller.firstName}
                     style={{backgroundColor:'#26626A', borderRadius:'5px', color:'white', width: '30vw', margin:'2vh'}}
                 />
                 <Button style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginTop:'2vh', width:'6vw', height:'4vh'}}>EDIT</Button>
@@ -82,7 +87,7 @@ function Profile() {
                     disabled
                     id="outlined-disabled"
                     label="Last Name"
-                    defaultValue="Green"
+                    defaultValue={traveller.lastName}
                     style={{backgroundColor:'#26626A', borderRadius:'5px', color:'white', width: '30vw', margin:'2vh'}}
                 />
                 <Button style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginTop:'2vh', width:'6vw', height:'4vh'}}>EDIT</Button>
@@ -93,7 +98,7 @@ function Profile() {
                     disabled
                     id="outlined-disabled"
                     label="Email"
-                    defaultValue="keren@gmail.com"
+                    defaultValue={traveller.email}
                     style={{backgroundColor:'#26626A', borderRadius:'5px', color:'white', width: '30vw', margin:'2vh'}}
                 />
                 <Button style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginTop:'2vh', width:'6vw', height:'4vh'}}>EDIT</Button>
@@ -124,7 +129,7 @@ function Profile() {
                       </InputAdornment>
                     }
                     label="Password"
-                    defaultValue='abcd'
+                    defaultValue={traveller.password}
                     style={{backgroundColor:'#26626A', color:'black', width:'30vw', marginLeft:'0.7vw'}}
                 />
                 <Button style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginTop:'2vh', width:'6vw', height:'4vh'}}>EDIT</Button>
@@ -135,7 +140,7 @@ function Profile() {
                     disabled
                     id="outlined-disabled"
                     label="Phone Number"
-                    defaultValue="0754898652"
+                    defaultValue={traveller.contact}
                     style={{backgroundColor:'#26626A', borderRadius:'5px', color:'white', width: '30vw', margin:'2vh'}}
                 />
                 <Button style={{backgroundColor:'#77A6AC', color:'white', borderRadius:'15px', marginTop:'2vh', width:'6vw', height:'4vh'}}>EDIT</Button>

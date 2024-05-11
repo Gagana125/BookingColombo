@@ -25,6 +25,7 @@ function ViewProperty() {
     ];
 
     useEffect(() => {
+        console.log(propertyOwner);
         dispatch(getProperties(propertyOwner.id));
     },[dispatch])
 

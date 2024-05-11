@@ -116,7 +116,7 @@ function ViewDetails() {
                             marginBottom:'3vh'
                         }}
                     >
-                            <Link style={{textDecoration:'none', color:'white'}}>RESERVE</Link>
+                            <Link to={'/traveller/reserve'} style={{textDecoration:'none', color:'white'}}>RESERVE</Link>
                     </Button>
                 </Stack>
                 
