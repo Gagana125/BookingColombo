@@ -5,14 +5,17 @@ const propertySlice = createSlice({
     name : "property",
     initialState: {
         properties : [],
+        allProperties : [],
         property : {},
         errors : {
+            getAllProperties : '',
             getProperties : '',
             getProperty : '',
             updateProperty : '',
             deleteProperty : ''
         },
         message : {
+            getAllProperties : '',
             getProperties : '',
             getProperty : '',
             updateProperty : '',
@@ -57,6 +60,15 @@ const propertySlice = createSlice({
                 state.message.deleteProperty = '';
                 state.errors.deleteProperty = action.payload.errors;
             }
+        }).addCase(getAllProperties.fulfilled,(state, action) => {
+          if(action.payload.statusFlag === 'success'){
+              state.allProperties = action.payload.property;
+              state.errors.getProperties = '';
+              state.message.getProperties = action.payload.message;
+        } else{
+            state.message.getAllProperties = '';
+            state.errors.getAllProperties = action.payload.errors;
+        }
         })
     }
 })
@@ -151,4 +163,27 @@ export const deleteProperty = createAsyncThunk(
           };
         });
     }
+);
+
+export const getAllProperties = createAsyncThunk(
+  "traveller/getAllProperties",
+  async (id) => {
+    return api
+      .get(`/property/get-all-properties`)
+      .then((response) => {
+          // console.log(response);
+        return {
+          statusFlag: "success",
+          message: response.data.message,
+          property: response.data.data
+        };
+      })
+      .catch((error) => {
+          // console.log(error);
+        return {
+          statusFlag: "error",
+          errors: error.response.data.message
+        };
+      });
+  }
 );

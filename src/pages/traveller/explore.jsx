@@ -1,10 +1,12 @@
 import { AddCircleOutline } from "@mui/icons-material";
 import { Button, Container, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getAllProperties } from "../../store/slices/property-slice";
+import { TabPane } from "react-bootstrap";
 
 function CustomTabButton({ label, isActive, onClick }) {
     return (
@@ -28,20 +30,22 @@ function Explore() {
         window.location.href = '/auth/login';
     }
     const [activeTab, setActiveTab] = useState("hotel");
+    const dispatch = useDispatch();
+    const properties = useSelector((state) => state.property.allProperties);
+    console.log(properties);
+    const images = [];
 
     const handleTabChange = (tab) => {
       setActiveTab(tab);
     };
 
+    useEffect(() => {
+        // console.log(properties);
+        dispatch(getAllProperties());
+    },[dispatch]);
+
     return(
         <Container>
-            {/* <Button style={{backgroundColor:'#A15D48', borderRadius:'5px', marginTop:'5vh', marginLeft:'65vw'}}>
-            <Link to={'/traveller/addPlace'} 
-                style={{textDecoration:'none',  color:'white', cursor:'pointer'}}>
-                <AddCircleOutline/>
-                Add a Place
-            </Link> 
-            </Button> */}
             <Tabs
                 activeKey={activeTab}
                 onSelect={handleTabChange}
@@ -50,164 +54,70 @@ function Explore() {
                 justify
                 style={{marginTop:'5vh'}}
             >
-                <Tab eventKey="hotel" title={<CustomTabButton label="HOTELS" isActive={activeTab === "hotel"} onClick={() => handleTabChange("hotel")}/>}>
-                    <div className="explore-tabs-content">
-                    <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Stack direction='column' width='16vw' justifyContent='space-between'>
-                            <Button style={{
-                                backgroundColor:'#77A6AC', 
-                                color:'white', 
-                                borderRadius:'15px', 
-                                marginLeft:'1vw',
-                                width:'15vw', 
-                                height:'6vh',
-                                marginTop:'3vh'
-                            }}>
-                                <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                                SEE DETAILS
-                            </Link>
-                            </Button>
-                            <Button style={{
-                                backgroundColor:'#77A6AC', 
-                                color:'white', 
-                                borderRadius:'15px', 
-                                marginLeft:'1vw',
-                                width:'15vw', 
-                                height:'6vh',
-                                marginTop:'3vh'
-                            }}>
-                                <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                                <AddCircleOutline/>
-                                    ADD TO WISHLIST
-                                </Link>
-                            </Button>
-                        </Stack>
+                {
+                    properties.length > 0 ? properties.map((property, index) => {
+                        // console.log(property.images);
+                        property.images.map((image) => {
+                            images.push(image.image);
+                        })
+                        return (
+                            <div key={index}>
+                                {console.log(property.type == 'hotel')}
+                                {property.type == 'hotel' ?
+                                <TabPane eventKey="hotel" title={<CustomTabButton label="HOTELS" isActive={activeTab === "hotel"} onClick={() => handleTabChange("hotel")}/>}>
+                                    <div className="explore-tabs-content">
+                                    <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
+                                        <img className="explore-img" src="/b.jfif" alt="" />
+                                        <Stack direction='column' width='16vw' marginTop='5vh'>
+                                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>{property.name}</Typography>
+                                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
+                                        </Stack>
+                                        <Stack direction='column' width='16vw' justifyContent='space-between'>
+                                            <Button style={{
+                                                backgroundColor:'#77A6AC', 
+                                                color:'white', 
+                                                borderRadius:'15px', 
+                                                marginLeft:'1vw',
+                                                width:'15vw', 
+                                                height:'6vh',
+                                                marginTop:'3vh'
+                                            }}>
+                                                <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                                SEE DETAILS
+                                            </Link>
+                                            </Button>
+                                            <Button style={{
+                                                backgroundColor:'#77A6AC', 
+                                                color:'white', 
+                                                borderRadius:'15px', 
+                                                marginLeft:'1vw',
+                                                width:'15vw', 
+                                                height:'6vh',
+                                                marginTop:'3vh'
+                                            }}>
+                                                <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                                <AddCircleOutline/>
+                                                    ADD TO WISHLIST
+                                                </Link>
+                                            </Button>
+                                        </Stack>
+                
+                                    </Stack>
+                                    </div>
+                                    
+                                </TabPane> : <Typography>No hotels</Typography>
+                                }
+                                
 
-                    </Stack>
-                    <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b3.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Stack direction='column' width='16vw' justifyContent='space-between'>
-                            <Button style={{
-                                backgroundColor:'#77A6AC', 
-                                color:'white', 
-                                borderRadius:'15px', 
-                                marginLeft:'1vw',
-                                width:'15vw', 
-                                height:'6vh',
-                                marginTop:'3vh'
-                            }}>
-                                <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                                SEE DETAILS
-                            </Link>
-                            </Button>
-                            <Button style={{
-                                backgroundColor:'#77A6AC', 
-                                color:'white', 
-                                borderRadius:'15px', 
-                                marginLeft:'1vw',
-                                width:'15vw', 
-                                height:'6vh',
-                                marginTop:'3vh'
-                            }}>
-                                <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                                <AddCircleOutline/>
-                                    ADD TO WISHLIST
-                                </Link>
-                            </Button>
-                        </Stack>
-                    </Stack>
-                    <Stack direction='column' marginBottom='2vh' width='16vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b2.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Stack direction='column' width='16vw' justifyContent='space-between'>
-                            <Button style={{
-                                backgroundColor:'#77A6AC', 
-                                color:'white', 
-                                borderRadius:'15px', 
-                                marginLeft:'1vw',
-                                width:'15vw', 
-                                height:'6vh',
-                                marginTop:'3vh'
-                            }}>
-                                <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                                SEE DETAILS
-                            </Link>
-                            </Button>
-                            <Button style={{
-                                backgroundColor:'#77A6AC', 
-                                color:'white', 
-                                borderRadius:'15px', 
-                                marginLeft:'1vw',
-                                width:'15vw', 
-                                height:'6vh',
-                                marginTop:'3vh'
-                            }}>
-                                <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                                <AddCircleOutline/>
-                                    ADD TO WISHLIST
-                                </Link>
-                            </Button>
-                        </Stack>
-                    </Stack>
-                    </div>
-                    
-                </Tab>
+                            </div>
+                        )
+                    }) : <Typography sx={{color:'#26626A', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>No properties found</Typography>
+                } 
+                
                 <Tab eventKey="apartment" title={<CustomTabButton label="APARTMENTS" isActive={activeTab === "apartment"} onClick={() => handleTabChange("apartment")} />}>
                 <div className="explore-tabs-content">
                     <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
                         <img className="explore-img" src="/b.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw',
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'8vh'
-                        }}>
-                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                            SEE DETAILS
-                        </Link>
-                        </Button>
-                    </Stack>
-                    <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b3.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw', 
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'8vh'
-                        }}>
-                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                            SEE DETAILS
-                        </Link>
-                        </Button>
-                    </Stack>
-                    <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b2.jfif" alt="" />
                         <Stack direction='column' width='16vw' marginTop='5vh'>
                             <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
                             <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
@@ -246,46 +156,6 @@ function Explore() {
                             marginTop:'8vh'
                         }}>
                             <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                            SEE DETAILS
-                        </Link>
-                        </Button>
-                    </Stack>
-                    <Stack direction='column' style={{backgroundColor:'#D9D9D9'}} marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b3.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw', 
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'8vh'
-                        }}>
-                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer', marginTop:'2vh'}}>
-                            SEE DETAILS
-                        </Link>
-                        </Button>
-                    </Stack>
-                    <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b2.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw',
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'8vh'
-                        }}>
-                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer', marginTop:'2vh'}}>
                             SEE DETAILS
                         </Link>
                         </Button>

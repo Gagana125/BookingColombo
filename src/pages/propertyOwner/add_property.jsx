@@ -85,7 +85,7 @@ function AddProperty(){
                             {/* <option >Category</option> */}
                             <option value={""} selected> -- Select Category --</option>
                             <option value={"hotel"}>HOTEL</option>
-                            <option value={"restaurants"}>RESTAURANTS</option>
+                            <option value={"restaurants"}>APARTMENTS</option>
                             <option value={"boutiques"}>BOUTIQUES</option>
                         </select>
                         <label className="property-form-label">ROOM DETAILS</label>
