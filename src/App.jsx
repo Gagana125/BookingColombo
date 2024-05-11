@@ -29,6 +29,7 @@ import ExploreMore from "./pages/propertyOwner/explore_more";
 import ViewDetails from "./pages/traveller/details";
 import AdminLayout from "./layouts/admin_layout";
 import BookingDetails from "./pages/traveller/booking_details";
+import AdminLogin from "./pages/auth/admin_login.jsx";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -37,6 +38,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={"loginprop"} element={<LoginPropertyOwner/>} />
       <Route path={"register"} element={<SignUp/>} />
       <Route path={"registerprop"} element={<SignUpPropertyOwner/>} />
+        <Route path={"adminLogin"} element={<AdminLogin/>}/>
     </Route>
     <Route path={"/"} element={<HomeLayout/>} >
       <Route index element={<Home/>} />
@@ -55,7 +57,9 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={"profile"} element={<OwnerProfile/>} />
       <Route path={"viewProperty"} element={<ViewProperty/>} />
       <Route path={"addProperty"} element={<AddProperty/>} />
-      <Route path={"editProperty"} element={<EditProperty/>} />
+      <Route path={"editProperty/:id"} element={<EditProperty/>} loader={({params}) => {
+          return params.id;
+      }}/>
       <Route path={"explore"} element={<ExploreMore/>} />
     </Route>
     <Route path={"admin"} element={<AdminLayout />}>
