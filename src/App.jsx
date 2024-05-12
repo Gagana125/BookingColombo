@@ -51,9 +51,13 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={"booking"} element={<Booking/>} />
       <Route path={"wishlist"} element={<WishList/>} />
       <Route path={"explore"} element={<Explore/>} />
-      <Route path={"details"} element={<ViewDetails/>} />
+      <Route path={"details/:id"} element={<ViewDetails/>} loader={({params}) => {
+            return params.id;
+      }}/>
       <Route path={"bookingDetails"} element={<BookingDetails/>} />
-      <Route path={"reserve"} element={<Reserve/>} />
+      <Route path={"reserve/:id"} element={<Reserve/>} loader={({params}) => {
+            return params.id;
+      }}/>
     </Route>
     <Route path={"propertyOwner"} element={<PropertyOwnerLayout/>} >
       <Route path={"profile"} element={<OwnerProfile/>} />

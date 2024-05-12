@@ -35,9 +35,16 @@ function Explore() {
     const properties = useSelector((state) => state.property.allProperties);
     console.log(properties);
     const images = [];
+    const [filteredProperties, setFilteredProperties] = useState([]);
 
     const handleTabChange = (tab) => {
+        setFilteredProperties([]);
       setActiveTab(tab);
+      properties.filter((property) => {
+        if (property.type === tab.substring(0, tab.length - 1)) {
+          setFilteredProperties([...filteredProperties, property]);
+        }
+      })
     };
 
     useEffect(() => {
@@ -55,112 +62,94 @@ function Explore() {
                 justify
                 style={{marginTop:'5vh'}}
             >
-                {
-                    properties.length > 0 ? properties.map((property, index) => {
-                        // console.log(property.images);
-                        property.images.map((image) => {
-                            images.push(image.image);
-                        })
-                        return (
-                            <div key={index}>
-                                {console.log(property.type == 'hotel')}
-                                {property.type == 'hotel' ?
-                                <TabPane eventKey="hotel" title={<CustomTabButton label="HOTELS" isActive={activeTab === "hotel"} onClick={() => handleTabChange("hotel")}/>}>
-                                    <div className="explore-tabs-content">
+                <Tab eventKey="hotels" title={<CustomTabButton label="Hotels" isActive={activeTab === "hotels"} onClick={() => handleTabChange("hotels")} />}>
+                    <div className="explore-tabs-content">
+                        {
+                            filteredProperties.map((property) => {
+                                return (
                                     <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                                        <img className="explore-img" src="/b.jfif" alt="" />
+                                        <img className="explore-img" src={'http://localhost:3000/'+property.images[0].image} alt="" />
                                         <Stack direction='column' width='16vw' marginTop='5vh'>
-                                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>{property.name}</Typography>
-                                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
+                                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>{property.roomDetails}</Typography>
+                                            <Typography style={{fontWeight:'bold', fontSize:'medium', marginBottom:'3vh'}}>{property.location}</Typography>
                                         </Stack>
-                                        <Stack direction='column' width='16vw' justifyContent='space-between'>
-                                            <Button style={{
-                                                backgroundColor:'#77A6AC', 
-                                                color:'white', 
-                                                borderRadius:'15px', 
-                                                marginLeft:'1vw',
-                                                width:'15vw', 
-                                                height:'6vh',
-                                                marginTop:'3vh'
-                                            }}>
-                                                <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                        <Button style={{
+                                            backgroundColor:'#77A6AC',
+                                            color:'white',
+                                            borderRadius:'15px',
+                                            marginLeft:'1vw',
+                                            width:'15vw',
+                                            height:'6vh',
+                                            marginTop:'8vh'
+                                        }}>
+                                            <Link to={'/traveller/details/'+property.propertyCode} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
                                                 SEE DETAILS
                                             </Link>
-                                            </Button>
-                                            <Button style={{
-                                                backgroundColor:'#77A6AC', 
-                                                color:'white', 
-                                                borderRadius:'15px', 
-                                                marginLeft:'1vw',
-                                                width:'15vw', 
-                                                height:'6vh',
-                                                marginTop:'3vh'
-                                            }}>
-                                                <Link style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                                                <AddCircleOutline/>
-                                                    ADD TO WISHLIST
-                                                </Link>
-                                            </Button>
-                                        </Stack>
-                
+                                        </Button>
                                     </Stack>
-                                    </div>
-                                    
-                                </TabPane> : <Typography>No hotels</Typography>
-                                }
-                                
-
-                            </div>
-                        )
-                    }) : <Typography sx={{color:'#26626A', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>No properties found</Typography>
-                } 
-                
-                <Tab eventKey="apartment" title={<CustomTabButton label="APARTMENTS" isActive={activeTab === "apartment"} onClick={() => handleTabChange("apartment")} />}>
-                <div className="explore-tabs-content">
-                    <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw',
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'8vh'
-                        }}>
-                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                            SEE DETAILS
-                        </Link>
-                        </Button>
-                    </Stack>
+                                )
+                            })
+                        }
                     </div>
                 </Tab>
-                <Tab eventKey="boutique" title={<CustomTabButton label="BOUTIQUES" isActive={activeTab === "boutique"} onClick={() => handleTabChange("boutique")} />}>
+                <Tab eventKey="apartments" title={<CustomTabButton label="APARTMENTS" isActive={activeTab === "apartment"} onClick={() => handleTabChange("apartments")} />}>
                 <div className="explore-tabs-content">
-                    <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
-                        <img className="explore-img" src="/b.jfif" alt="" />
-                        <Stack direction='column' width='16vw' marginTop='5vh'>
-                            <Typography style={{fontWeight:'bolder', fontSize:'large'}}>CINNAMON LAKESIDE - COLOMBO</Typography>
-                            <Typography style={{fontWeight:'bold', fontSize:'small', marginBottom:'3vh'}}>15, Sir Chittampalam A Gardiner Mawatha, 00200</Typography>
-                        </Stack>
-                        <Button style={{
-                            backgroundColor:'#77A6AC', 
-                            color:'white', 
-                            borderRadius:'15px', 
-                            marginLeft:'1vw',
-                            width:'15vw', 
-                            height:'6vh',
-                            marginTop:'8vh'
-                        }}>
-                            <Link to={'/traveller/details'} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
-                            SEE DETAILS
-                        </Link>
-                        </Button>
-                    </Stack>
+                    {
+                        filteredProperties.map((property) => {
+                            return (
+                                <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
+                                    <img className="explore-img" src={'http://localhost:3000/'+property.images[0].image} alt="" />
+                                    <Stack direction='column' width='16vw' marginTop='5vh'>
+                                        <Typography style={{fontWeight:'bolder', fontSize:'large'}}>{property.roomDetails}</Typography>
+                                        <Typography style={{fontWeight:'bold', fontSize:'medium', marginBottom:'3vh'}}>{property.location}</Typography>
+                                    </Stack>
+                                    <Button style={{
+                                        backgroundColor:'#77A6AC',
+                                        color:'white',
+                                        borderRadius:'15px',
+                                        marginLeft:'1vw',
+                                        width:'15vw',
+                                        height:'6vh',
+                                        marginTop:'8vh'
+                                    }}>
+                                        <Link to={'/traveller/details/'+property.propertyCode} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                            SEE DETAILS
+                                        </Link>
+                                    </Button>
+                                </Stack>
+                            )
+                        })
+                    }
+                    </div>
+                </Tab>
+                <Tab eventKey="boutiques" title={<CustomTabButton label="BOUTIQUES" isActive={activeTab === "boutique"} onClick={() => handleTabChange("boutiques")} />}>
+                <div className="explore-tabs-content">
+                    {
+                        filteredProperties.map((property) => {
+                            return (
+                                <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
+                                    <img className="explore-img" src={'http://localhost:3000/'+property.images[0].image} alt="" />
+                                    <Stack direction='column' width='16vw' marginTop='5vh'>
+                                        <Typography style={{fontWeight:'bolder', fontSize:'large'}}>{property.roomDetails}</Typography>
+                                        <Typography style={{fontWeight:'bold', fontSize:'medium', marginBottom:'3vh'}}>{property.location}</Typography>
+                                    </Stack>
+                                    <Button style={{
+                                        backgroundColor:'#77A6AC',
+                                        color:'white',
+                                        borderRadius:'15px',
+                                        marginLeft:'1vw',
+                                        width:'15vw',
+                                        height:'6vh',
+                                        marginTop:'8vh'
+                                    }}>
+                                        <Link to={'/traveller/details/'+property.propertyCode} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
+                                            SEE DETAILS
+                                        </Link>
+                                    </Button>
+                                </Stack>
+                            )
+                        })
+                    }
                     </div>
                 </Tab>
             </Tabs>
