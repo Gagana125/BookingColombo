@@ -7,6 +7,7 @@ import placeSlice from "./slices/place-slice.js";
 import reviewSlice from "./slices/review-slice.js";
 import wishlistSlice from "./slices/wishlist-slice.js";
 import bookingSlice from "./slices/booking-slice.js";
+import reportsSlice from "./slices/reports-slice.js";
 
 export default configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export default configureStore({
     place : placeSlice,
     review : reviewSlice,
     wishlist : wishlistSlice,
-    booking : bookingSlice
+    booking : bookingSlice,
+    reports : reportsSlice
   }
 })
