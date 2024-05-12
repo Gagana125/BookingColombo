@@ -8,6 +8,7 @@ import ReviewDialog from "../../components/review_dialog";
 import { useDispatch, useSelector } from "react-redux";
 import { getPlaces } from "../../store/slices/place-slice";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import {addReview, getReviewByPlace} from "../../store/slices/review-slice.js";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DeleteDialog from "../../components/delete_dialog";
@@ -16,13 +17,20 @@ function PropertyList() {
     const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
     const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
     const adminIsLoggedIn = useSelector((state)=>state.admin.loggedIn);
+
+    const traveller = useSelector((state) => state.traveller.localStorage);
+    const reviews = useSelector((state) => state.review.reviews);
+
     const allPlaces = useSelector((state) => state.place.places);
     const dispatch = useDispatch();
     const [filteredPlaces, setFilteredPlaces] = useState([]); // State to store filtered places
     const [selectedCategory, setSelectedCategory] = useState(""); // State to store selected category
     const [showReviewBoxes, setShowReviewBoxes] = useState({});
-    const [reviewContent, setReviewContent] = useState('');
     const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+    const [review, setReview] = useState({
+        rating: 0,
+        review: '',
+    }); // State to store review content
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     const handleDeleteDialogOpen = () => {
@@ -48,17 +56,27 @@ function PropertyList() {
     
 
     const handleReviewSubmit = (placeId) => {
-        console.log('Review submitted:', reviewContent);
-        setReviewContent('');
+        let data = new FormData();
+        data.append('rating', review.rating);
+        data.append('review', review.review);
+        data.append('placeCode', placeId);
+        data.append('travellerID', traveller.id)
+
+        dispatch(addReview(data));
+
+        setReview({
+            rating: 0,
+            review: ''
+        });
         setShowReviewBoxes(prevState => ({
             ...prevState,
             [placeId]: false // Set the review box state for the specific place to false
         }));
     };
-    
 
-    const handleReviewDialogOpen = () => {
-        console.log('hi');
+
+    const handleReviewDialogOpen = (placeCode) => {
+        dispatch(getReviewByPlace(placeCode))
         setReviewDialogOpen(true);
       };
     
@@ -153,10 +171,9 @@ function PropertyList() {
                     <Stack direction='row' justifyContent='space-around'>
                         {/* Render cards for filtered places */}
                         {filteredPlaces.map(place => (
-                            <div key={place.id} className="category-card">
+                            <div key={place.id} className={"category-card"}>
                                 {/* Render card content */}
-                                {console.log(place.placeCode)}
-                                <img className="category-image" src={place.images} alt={place.name} />
+                                <img className="category-image"  src={'http://localhost:3000/'+place.images[0].image} alt={place.name} />
                                 <Typography>{place.name}</Typography>
                                 {/* <Typography>{place.reviews} reviews</Typography> */}
                                 <Typography>{place.description}</Typography>
@@ -168,7 +185,7 @@ function PropertyList() {
                                         name="simple-controlled"
                                         // value={value}
                                         onChange={(event, newValue) => {
-                                            setValue(newValue);
+                                            setReview({...review, rating: newValue})
                                         }}
                                     />
                                     <MapsUgcOutlinedIcon onClick={() => handleReviewClick(place.id)} />
@@ -176,17 +193,17 @@ function PropertyList() {
                                 {showReviewBoxes[place.id] && ( // Check if review box should be shown for this place
                                     <>
                                         <textarea
-                                            value={reviewContent}
-                                            onChange={(e) => setReviewContent(e.target.value)}
+                                            value={review.review}
+                                            onChange={(e) => setReview({...review, review: e.target.value})}
                                             placeholder="Write your review..."
                                             rows="5"
                                             style={{ width: '100%', marginTop: '1rem', backgroundColor:'#77A6AC', color:'white', marginBottom:'3px' }}
                                         />
-                                        <Button onClick={() => handleReviewSubmit(place.id)} variant="contained" style={{backgroundColor:'#A15D48', marginBottom:'3vh'}}>Submit Review</Button>
+                                        <Button onClick={() => handleReviewSubmit(place.placeCode)} variant="contained" style={{backgroundColor:'#A15D48', marginBottom:'3vh'}}>Submit Review</Button>
                                     </>
                                 )}
                                 <Stack direction='row' width='12vw' justifyContent='space-between'>
-                                    <Button variant="outlined" onClick={handleReviewDialogOpen} style={{marginBottom:'10vh'}}>
+                                    <Button variant="outlined" onClick={() => handleReviewDialogOpen(place.placeCode)} style={{marginBottom:'10vh'}}>
                                         Reviews
                                     </Button>
                                     {console.log(place.id)}
@@ -212,6 +229,7 @@ function PropertyList() {
                                 <ReviewDialog 
                                     open={reviewDialogOpen}
                                     onClose={handleReviewDialogClose}
+                                    content={reviews !== undefined ? reviews : []}
                                 />
                             </div>
                         ))}
