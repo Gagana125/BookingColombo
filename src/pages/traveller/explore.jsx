@@ -80,7 +80,7 @@ function Explore() {
                                             marginLeft:'1vw',
                                             width:'15vw',
                                             height:'6vh',
-                                            marginTop:'8vh'
+                                            marginTop:'4vh'
                                         }}>
                                             <Link to={'/traveller/details/'+property.propertyCode} style={{textDecoration:'none', color:'white', cursor:'pointer'}}>
                                                 SEE DETAILS
