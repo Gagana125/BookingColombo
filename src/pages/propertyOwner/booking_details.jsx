@@ -1,39 +1,35 @@
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-router-dom";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { deleteBooking, getBooking } from "../../store/slices/booking-slice";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 function BookingDetails() {
-    const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
+    const dispatch = useDispatch();
+    const propertyOwnerIsLoggedIn = useSelector((state)=>state.propertyOwner.loggedIn);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [bookings, setBookings] = useState([]);
+    const bookings = useSelector((state) => state.booking.bookings);
+    console.log(bookings);
 
     const handleDateChange = (date) => {
-        setSelectedDate(date);
-        // Call API to fetch bookings for the selected date
-        fetchBookings(date);
+        console.log('inside');
+        console.log(date);
+        const formattedDate = date.toISOString().split('T')[0]; // Format the date
+        setSelectedDate(formattedDate);
+        console.log(formattedDate);
+        dispatch(getBooking(formattedDate));
     };
 
-    const fetchBookings = async (date) => {
-        try {
-            const response = await fetch(`/api/bookings?date=${date}`);
-            if (response.ok) {
-                const data = await response.json();
-                setBookings(data.bookings);
-            } else {
-                console.error('Failed to fetch bookings');
-            }
-        } catch (error) {
-            console.error('Error fetching bookings:', error);
-        }
-    };
+    const makeAvailable = (id) => {
+        dispatch(deleteBooking(id));
+    }
+    
 
-    if (!travellerIsLoggedIn) {
-        window.location.href = '/auth/login';
+    if (!propertyOwnerIsLoggedIn) {
+        window.location.href = '/auth/loginprop';
         return null; // Prevent rendering the rest of the component if not logged in
     }
 
@@ -44,63 +40,82 @@ function BookingDetails() {
             </Typography>
             <Stack direction='row' style={{ backgroundColor: '#CAB1AA', padding: '2vw', marginBottom: '2vh' }}>
                 <Form>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoItem label={'Select Date'} sx={{ fontWeight: 'bold' }}>
-                            <DatePicker
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                                sx={{ backgroundColor: '#26626A', width: '45vw' }}
-                            />
-                        </DemoItem>
-                    </LocalizationProvider>
+                    <DatePicker
+                        selected={selectedDate ? new Date(selectedDate) : null}
+                        onChange={handleDateChange}
+                        dateFormat="yyyy-MM-dd"
+                        placeholderText="Select Date"
+                        className="date-picker"
+                        // style={{ width: '35vw', backgroundColor: 'green' }}
+                    />
                     {bookings.length > 0 ? (
                         <Stack marginTop='2vh' marginBottom='2vh'>
                             {bookings.map((booking, index) => (
-                                <Stack key={index} direction='row'>
-                                    <Typography style={{ fontWeight: 'bold' }}>
+                                <Stack key={index} direction='column'>
+                                    <Stack direction='row'>
+                                    <Typography style={{ fontWeight: 'bold', marginLeft: '1rem' }}>
                                         Name :
                                     </Typography>
                                     <Typography>
-                                        {booking.name}
+                                        {' ' + booking.name}
                                     </Typography>
+                                    </Stack>
+                                    <Stack direction='row'>
                                     <Typography style={{ fontWeight: 'bold', marginLeft: '1rem' }}>
                                         No.of People :
                                     </Typography>
                                     <Typography>
-                                        {booking.numOfPeople}
+                                        {' ' + booking.noOfPeople}
                                     </Typography>
+                                    </Stack>
+                                    <Stack direction='row'>
                                     <Typography style={{ fontWeight: 'bold', marginLeft: '1rem' }}>
                                         Arrival Date :
                                     </Typography>
                                     <Typography>
-                                        {booking.arrivalDate}
+                                        {' ' + booking.arrival_date}
                                     </Typography>
+                                    </Stack>
+                                    <Stack direction='row'>
                                     <Typography style={{ fontWeight: 'bold', marginLeft: '1rem' }}>
                                         Departure Date :
                                     </Typography>
                                     <Typography>
-                                        {booking.departureDate}
+                                        {' ' + booking.departure_date}
                                     </Typography>
+                                    </Stack>
+                                    <Stack direction='row'>
+                                    <Typography style={{ fontWeight: 'bold', marginLeft: '1rem' }}>
+                                        Phone Number :
+                                    </Typography>
+                                    <Typography>
+                                        {' ' + booking.phone}
+                                    </Typography>
+                                    </Stack>
+                                    <Button
+                                        sx={{
+                                            borderRadius: '10px',
+                                            backgroundColor: '#A15D48',
+                                            color: 'white',
+                                            width: '10vw',
+                                            alignContent: 'center',
+                                            justifyContent: 'center',
+                                            marginTop: '2vh',
+                                            marginBottom: '1vh'
+                                        }}
+                                        onClick={() => makeAvailable(booking.id)}
+                                    >
+                                        MAKE AVAILABLE
+                                    </Button>
                                 </Stack>
                             ))}
+                            
                         </Stack>
+                        
                     ) : (
                         <Typography>No reservations for the selected date.</Typography>
                     )}
-                    <Button
-                        sx={{
-                            borderRadius: '10px',
-                            backgroundColor: '#A15D48',
-                            color: 'white',
-                            width: '10vw',
-                            alignContent: 'center',
-                            justifyContent: 'center',
-                            marginTop: '2vh',
-                            marginBottom: '1vh'
-                        }}
-                    >
-                        MAKE AVAILABLE
-                    </Button>
+                    
                 </Form>
             </Stack>
         </Container>
