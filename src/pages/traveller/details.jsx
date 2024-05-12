@@ -109,7 +109,7 @@ function ViewDetails() {
                         <Typography sx={{color:'#A15D48', fontSize:'large', fontWeight:'bolder', marginBottom:'1vh', marginLeft:'5vw'}}>Rs. {property.price}</Typography>
                     </Stack>
                     <Stack direction='row' justifyContent='space-around'>
-                        <Button
+                        {/* <Button
                             sx={{
                                 backgroundColor:'#A15D48',
                                 color:'white',
@@ -121,7 +121,7 @@ function ViewDetails() {
                             }}
                         >
                             <Link to={'/traveller/bookingDetails'} style={{textDecoration:'none', color:'white'}}>CHECK BOOKINGS</Link>
-                        </Button>
+                        </Button> */}
                         <Button
                             sx={{
                                 backgroundColor:'#A15D48',
