@@ -20,7 +20,7 @@ function WishList() {
     }, [dispatch]);
 
     return(
-        <Container className={'h-[80vh]'}>
+        <Container style={{height : '80vh', minHeight: '80vh'}}>
             <Typography sx={{color:'#26626A', fontSize:'x-large', fontWeight:'bolder', marginBottom:'1vh', marginTop:'5vh'}}>
                 WISH LIST
             </Typography>
