@@ -7,7 +7,7 @@ function TravellerLayout() {
         <div className={'nunito-sans-light'}>
             <TravellerNavbar/>
             <div className={'flex'}>
-                <div className={"w-[60%] max-2xl:pt-14 min-h-full"}>
+                <div className={"w-[60%] max-2xl:pt-14 min-h-[90vh] h-[90vh]"}>
                     <main>
                         <Outlet />
                     </main>
