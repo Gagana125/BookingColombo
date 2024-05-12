@@ -104,7 +104,7 @@ export const getProperty = createAsyncThunk(
       return api
         .get(`/property/get-property/${id}`)
         .then((response) => {
-            console.log(response);
+            // console.log(response);
           return {
             statusFlag: "success",
             message: response.data.message,
@@ -127,7 +127,7 @@ export const updateProperty = createAsyncThunk(
       return api
         .put(`/property/update-property`, formData)
         .then((response) => {
-            console.log(response);
+            // console.log(response);
           return {
             statusFlag: "success",
             message: response.data.message

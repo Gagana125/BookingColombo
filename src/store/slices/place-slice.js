@@ -5,6 +5,7 @@ const placeSlice = createSlice({
     name : "place",
     initialState: {
         place : {},
+        onePlace : {},
         places : [],
         errors : {
             addPlace : '',
@@ -66,7 +67,7 @@ const placeSlice = createSlice({
             }
         }).addCase(getPlace.fulfilled, (state, action) => {
             if (action.payload.statusFlag === 'success') {
-                state.place = action.payload.place;
+                state.onePlace = action.payload.place;
                 state.message.getPlace = action.payload.message;
             } else {
                 state.errors.getPlace = action.payload.message;
@@ -166,6 +167,7 @@ export const getPlace = createAsyncThunk(
     'place/getPlace',
     async (id) => {
         return api.get(`/admin/get-place/${id}`).then(response => {
+            console.log(response);
             return {
                 statusFlag: 'success',
                 place: response.data.data,

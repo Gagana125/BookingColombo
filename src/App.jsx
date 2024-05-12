@@ -66,7 +66,9 @@ const router = createBrowserRouter(createRoutesFromElements(
     </Route>
     <Route path={"admin"} element={<AdminLayout />}>
       <Route path={"addPlace"} element={<AddPlace/>} />
-      <Route path={"editPlace"} element={<EditPlace/>} />
+      <Route path={"editPlace/:id"} element={<EditPlace/>} loader={({params}) => {
+          return params.id;
+      }}/>
     </Route>
   </Route>
 ));

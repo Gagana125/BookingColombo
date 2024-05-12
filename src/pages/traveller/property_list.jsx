@@ -8,6 +8,9 @@ import ReviewDialog from "../../components/review_dialog";
 import { useDispatch, useSelector } from "react-redux";
 import { getPlaces } from "../../store/slices/place-slice";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import DeleteDialog from "../../components/delete_dialog";
 
 function PropertyList() {
     const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
@@ -20,6 +23,21 @@ function PropertyList() {
     const [showReviewBoxes, setShowReviewBoxes] = useState({});
     const [reviewContent, setReviewContent] = useState('');
     const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+    const handleDeleteDialogOpen = () => {
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDeleteDialogClose = () => {
+        setDeleteDialogOpen(false);
+    };
+
+    const handleDeleteConfirmation = () => {
+        console.log('Delete confirmed');
+        setDeleteDialogOpen(false);
+        dispatch(deletePlace(id));
+    };
 
     const handleReviewClick = (placeId) => {
         setShowReviewBoxes(prevState => ({
@@ -137,7 +155,7 @@ function PropertyList() {
                         {filteredPlaces.map(place => (
                             <div key={place.id} className="category-card">
                                 {/* Render card content */}
-                                {console.log(place)}
+                                {console.log(place.placeCode)}
                                 <img className="category-image" src={place.images} alt={place.name} />
                                 <Typography>{place.name}</Typography>
                                 {/* <Typography>{place.reviews} reviews</Typography> */}
@@ -167,9 +185,30 @@ function PropertyList() {
                                         <Button onClick={() => handleReviewSubmit(place.id)} variant="contained" style={{backgroundColor:'#A15D48', marginBottom:'3vh'}}>Submit Review</Button>
                                     </>
                                 )}
-                                <Button variant="outlined" onClick={handleReviewDialogOpen} style={{marginBottom:'10vh'}}>
-                                    Reviews
-                                </Button>
+                                <Stack direction='row' width='12vw' justifyContent='space-between'>
+                                    <Button variant="outlined" onClick={handleReviewDialogOpen} style={{marginBottom:'10vh'}}>
+                                        Reviews
+                                    </Button>
+                                    {console.log(place.id)}
+                                    {
+                                        adminIsLoggedIn &&
+                                        <div>
+                                            <Link to={'/admin/editPlace/'+place.placeCode}>
+                                                <EditIcon style={{cursor:'pointer', color:'black'}} />
+                                            </Link>
+                                            <DeleteOutlinedIcon style={{cursor:'pointer'}} onClick={handleDeleteDialogOpen}/>
+                                            <DeleteDialog
+                                                open={deleteDialogOpen}
+                                                onClose={handleDeleteDialogClose}
+                                                onConfirm={handleDeleteConfirmation}
+                                                title="DELETE PLACE?"
+                                                content="Are you sure you want to delete this place?"
+                                            />
+                                        </div>
+                                    }
+                                    
+                                </Stack>
+                                
                                 <ReviewDialog 
                                     open={reviewDialogOpen}
                                     onClose={handleReviewDialogClose}
