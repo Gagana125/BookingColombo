@@ -101,6 +101,7 @@ function EditPlace(){
       console.log('Delete confirmed');
       setDeleteDialogOpen(false);
       dispatch(deletePlace(id));
+      
     };
 
     return(
