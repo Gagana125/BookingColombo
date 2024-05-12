@@ -6,9 +6,12 @@ import Rating from '@mui/material/Rating';
 import MapsUgcOutlinedIcon from '@mui/icons-material/MapsUgcOutlined';
 import ReviewDialog from "../../components/review_dialog";
 import { useDispatch, useSelector } from "react-redux";
-import { getPlaces } from "../../store/slices/place-slice";
+import { getPlaces, deletePlace } from "../../store/slices/place-slice";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import {addReview, getReviewByPlace} from "../../store/slices/review-slice.js";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import DeleteDialog from "../../components/delete_dialog";
 
 function PropertyList() {
     const travellerIsLoggedIn = useSelector((state)=>state.traveller.loggedIn);
@@ -28,6 +31,21 @@ function PropertyList() {
         rating: 0,
         review: '',
     }); // State to store review content
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+    const handleDeleteDialogOpen = () => {
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDeleteDialogClose = () => {
+        setDeleteDialogOpen(false);
+    };
+
+    const handleDeleteConfirmation = (id) => {
+        console.log('Delete confirmed');
+        setDeleteDialogOpen(false);
+        dispatch(deletePlace(id));
+    };
 
     const handleReviewClick = (placeId) => {
         setShowReviewBoxes(prevState => ({
@@ -54,6 +72,7 @@ function PropertyList() {
             ...prevState,
             [placeId]: false // Set the review box state for the specific place to false
         }));
+        setReviewDialogOpen(false);
     };
 
 
@@ -74,6 +93,7 @@ function PropertyList() {
     const handleCategoryChange = (event) => {
         const category = event.target.value;
         setSelectedCategory(category);
+        console.log(filteredPlaces);
         // Filter places based on selected category
         if (category) {
             const filteredPlaces = allPlaces.filter(place => place.category.toLowerCase() === category.toLowerCase());
@@ -181,12 +201,33 @@ function PropertyList() {
                                             rows="5"
                                             style={{ width: '100%', marginTop: '1rem', backgroundColor:'#77A6AC', color:'white', marginBottom:'3px' }}
                                         />
-                                        <Button onClick={() => handleReviewSubmit(place.placeCode)} variant="contained" style={{backgroundColor:'#A15D48', marginBottom:'3vh'}}>Submit Review</Button>
+                                        <Button onClick={() => handleReviewSubmit(place.placeCode)} variant="contained" style={{width: '100%', backgroundColor:'#A15D48', marginBottom:'3vh'}}>Submit Review</Button>
                                     </>
                                 )}
-                                <Button variant="outlined" onClick={() => handleReviewDialogOpen(place.placeCode)} style={{marginBottom:'10vh'}}>
-                                    Reviews
-                                </Button>
+                                <Stack direction='row' width='12vw' justifyContent='space-between'>
+                                    <Button variant="outlined" onClick={() => handleReviewDialogOpen(place.placeCode)} style={{marginBottom:'10vh'}}>
+                                        Reviews
+                                    </Button>
+                                    {console.log(place.id)}
+                                    {
+                                        adminIsLoggedIn &&
+                                        <div>
+                                            <Link to={'/admin/editPlace/'+place.placeCode}>
+                                                <EditIcon style={{cursor:'pointer', color:'black'}} />
+                                            </Link>
+                                            <DeleteOutlinedIcon style={{cursor:'pointer'}} onClick={handleDeleteDialogOpen}/>
+                                            <DeleteDialog
+                                                open={deleteDialogOpen}
+                                                onClose={handleDeleteDialogClose}
+                                                onConfirm={() => handleDeleteConfirmation(place.placeCode)}
+                                                title="DELETE PLACE?"
+                                                content="Are you sure you want to delete this place?"
+                                            />
+                                        </div>
+                                    }
+                                    
+                                </Stack>
+                                
                                 <ReviewDialog 
                                     open={reviewDialogOpen}
                                     onClose={handleReviewDialogClose}

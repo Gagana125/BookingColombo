@@ -7,7 +7,7 @@ function PropertyOwnerLayout() {
         <div className={'nunito-sans-light'}>
             <OwnerNavbar/>
             <div className={'flex'}>
-                <div className={"w-[60%] max-2xl:pt-14"}>
+                <div className={"w-[60%] max-2xl:pt-14 min-h-full"}>
                     <main>
                         <Outlet />
                     </main>

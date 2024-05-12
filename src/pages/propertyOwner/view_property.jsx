@@ -124,7 +124,7 @@ function ViewProperty() {
                                             marginBottom:'3vh'
                                         }}
                                     >
-                                        <Link to={'/traveller/property'} style={{textDecoration:'none', color:'white'}}>CHECK BOOKINGS</Link>
+                                        <Link to={'/propertyOwner/bookingDetails'} style={{textDecoration:'none', color:'white'}}>CHECK BOOKINGS</Link>
                                     </Button>
                                 </Stack>
                             </div>

@@ -28,9 +28,10 @@ import Explore from "./pages/traveller/explore";
 import ExploreMore from "./pages/propertyOwner/explore_more";
 import ViewDetails from "./pages/traveller/details";
 import AdminLayout from "./layouts/admin_layout";
-import BookingDetails from "./pages/traveller/booking_details";
+import BookingDetails from "./pages/propertyOwner/booking_details.jsx";
 import AdminLogin from "./pages/auth/admin_login.jsx";
 import Reserve from "./pages/traveller/reserve";
+import Report from "./pages/propertyOwner/report.jsx";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -58,6 +59,9 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path={"reserve/:id"} element={<Reserve/>} loader={({params}) => {
             return params.id;
       }}/>
+      <Route path={"details"} element={<ViewDetails/>} />
+      <Route path={"reserve"} element={<Reserve/>} />
+
     </Route>
     <Route path={"propertyOwner"} element={<PropertyOwnerLayout/>} >
       <Route path={"profile"} element={<OwnerProfile/>} />
@@ -67,10 +71,14 @@ const router = createBrowserRouter(createRoutesFromElements(
           return params.id;
       }}/>
       <Route path={"explore"} element={<ExploreMore/>} />
+      <Route path={"bookingDetails"} element={<BookingDetails/>} />
+      <Route path={"report"} element={<Report/>} />
     </Route>
     <Route path={"admin"} element={<AdminLayout />}>
       <Route path={"addPlace"} element={<AddPlace/>} />
-      <Route path={"editPlace"} element={<EditPlace/>} />
+      <Route path={"editPlace/:id"} element={<EditPlace/>} loader={({params}) => {
+          return params.id;
+      }}/>
     </Route>
   </Route>
 ));
