@@ -4,6 +4,7 @@ import propertyOwnerSlice from "./slices/property-owner-slice.js";
 import propertySlice from "./slices/property-slice.js";
 import adminSlice from "./slices/admin-slice.js";
 import placeSlice from "./slices/place-slice.js";
+import reviewSlice from "./slices/review-slice.js";
 
 export default configureStore({
   reducer: {
@@ -13,5 +14,6 @@ export default configureStore({
     property: propertySlice,
     admin : adminSlice,
     place : placeSlice,
+    review : reviewSlice
   }
 })
