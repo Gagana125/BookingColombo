@@ -39,9 +39,7 @@ const reviewSlice = createSlice({
                 state.review = action.payload.review;
                 state.message.addReview = action.payload.message;
                 state.errors.addReview = {};
-                setTimeout(() => {
-                    // window.location.reload()
-                }, 1000);
+                window.location.reload()
             } else {
                 state.errors.addReview = action.payload.errors;
             }

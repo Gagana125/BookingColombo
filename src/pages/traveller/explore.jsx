@@ -33,19 +33,23 @@ function Explore() {
     const [activeTab, setActiveTab] = useState("hotel");
     const dispatch = useDispatch();
     const properties = useSelector((state) => state.property.allProperties);
-    console.log(properties);
+    // console.log(properties);
     const images = [];
     const [filteredProperties, setFilteredProperties] = useState([]);
 
     const handleTabChange = (tab) => {
-        setFilteredProperties([]);
-      setActiveTab(tab);
-      properties.filter((property) => {
-        if (property.type === tab.substring(0, tab.length - 1)) {
-          setFilteredProperties([...filteredProperties, property]);
-        }
-      })
+        // setFilteredProperties([]);
+        setActiveTab(tab);
+        properties.filter((property) => {
+          // console.log(property);
+          if (property.type === tab.substring(0, tab.length - 1)) {
+          // console.log(property);
+            setFilteredProperties([...filteredProperties, property]);
+          }
+        })
+        // console.log(filteredProperties);
     };
+    console.log(filteredProperties);
 
     useEffect(() => {
         // console.log(properties);
@@ -92,7 +96,7 @@ function Explore() {
                         }
                     </div>
                 </Tab>
-                <Tab eventKey="apartments" title={<CustomTabButton label="APARTMENTS" isActive={activeTab === "apartment"} onClick={() => handleTabChange("apartments")} />}>
+                <Tab eventKey="apartments" title={<CustomTabButton label="APARTMENTS" isActive={activeTab === "apartment"} onClick={() => handleTabChange("restaurantss")} />}>
                 <div className="explore-tabs-content">
                     {
                         filteredProperties.map((property) => {
@@ -122,7 +126,7 @@ function Explore() {
                     }
                     </div>
                 </Tab>
-                <Tab eventKey="boutiques" title={<CustomTabButton label="BOUTIQUES" isActive={activeTab === "boutique"} onClick={() => handleTabChange("boutiques")} />}>
+                <Tab eventKey="boutiques" title={<CustomTabButton label="BOUTIQUES" isActive={activeTab === "boutique"} onClick={() => handleTabChange("boutiquess")} />}>
                 <div className="explore-tabs-content">
                     {
                         filteredProperties.map((property) => {

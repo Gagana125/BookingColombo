@@ -55,7 +55,7 @@ const propertySlice = createSlice({
             if(action.payload.statusFlag === 'success'){
                 state.errors.deleteProperty = '';
                 state.message.deleteProperty = action.payload.message;
-                window.location.href = '/propertyOwner/profile';
+                window.location.href = '/propertyOwner/viewProperty';
             } else{
                 state.message.deleteProperty = '';
                 state.errors.deleteProperty = action.payload.errors;

@@ -15,7 +15,7 @@ function Report() {
 
     const dataIncome = revenue ? [
         { week: 'Hotel', value: revenue.hotel },
-        { week: 'Apartment', value: revenue.apartments },
+        { week: 'Apartment', value: revenue.restaurants },
         { week: 'Boutique', value: revenue.boutiques }
     ] : [];
 
@@ -28,7 +28,7 @@ function Report() {
 
     const data2 = propertyCount ? [
             { id: 0, value: propertyCount.hotel, label: 'HOTELS' },
-            { id: 1, value: propertyCount.apartments, label: 'APARTMENTS' },
+            { id: 1, value: propertyCount.restaurants, label: 'APARTMENTS' },
             { id: 2, value: propertyCount.boutiques, label: 'BOUTIQUES' },
         ] : [];
 

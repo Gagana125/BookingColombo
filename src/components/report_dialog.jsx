@@ -24,10 +24,10 @@ function ReportDialog({ open, onClose, onConfirm, title, content }) {
               <Link to={'/propertyOwner/report'} style={{textDecoration:'none', color:'white'}}>VIEW</Link>
             </Button>
         </Stack>
-        <Stack direction='row' width='20vw' justifyContent='space-between'>
+        {/* <Stack direction='row' width='20vw' justifyContent='space-between'>
             <DialogContentText>Historical Booking Trends</DialogContentText>
             <Button style={{backgroundColor:'#A15D48', color:'white'}}>VIEW</Button>
-        </Stack>
+        </Stack> */}
       </DialogContent>
     </Dialog>
   );

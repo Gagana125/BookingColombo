@@ -56,6 +56,7 @@ function PropertyList() {
     
 
     const handleReviewSubmit = (placeId) => {
+        setReviewDialogOpen(false);
         let data = new FormData();
         data.append('rating', review.rating);
         data.append('review', review.review);
@@ -72,7 +73,6 @@ function PropertyList() {
             ...prevState,
             [placeId]: false // Set the review box state for the specific place to false
         }));
-        setReviewDialogOpen(false);
     };
 
 
