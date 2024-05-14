@@ -57,7 +57,7 @@ function Login() {
                     {
                         errors ? <Typography style={{color:'red', marginBottom:'2vh'}}>Invalid Credentials!</Typography> : <div></div>
                     }
-                    <FormControl sx={{ m: 1, width: '30vw', backgroundColor:'#26626A', borderRadius:'5px' }} variant="outlined">
+                    <FormControl sx={{ m: 1, width: '30vw', backgroundColor:'#77A6AC', borderRadius:'5px' }} variant="outlined">
                         <TextField id="email" label="Email" style={{color:'white'}} name={"email"} value={formData.email} onChange={handleChange}/>
                     </FormControl>
                     <FormControl sx={{ m: 1, width: '25ch', backgroundColor:'#77A6AC', borderRadius:'5px' }} variant="outlined">

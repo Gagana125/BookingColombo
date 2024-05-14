@@ -41,7 +41,7 @@ const handleLogin = () => {
             <Stack direction='row' justifyContent='space-around' alignContent='center'>
                 <Stack direction='column' width='35vw'>
                     <Typography style={{marginTop:'20vh', color:'#A15D48', fontWeight:'bold', fontSize:'large', marginBottom:'2vh'}}>LOGIN</Typography>
-                    <FormControl sx={{ m: 1, width: '30vw', backgroundColor:'#26626A', borderRadius:'5px' }} variant="outlined">
+                    <FormControl sx={{ m: 1, width: '30vw', backgroundColor:'#77A6AC', borderRadius:'5px' }} variant="outlined">
                         <TextField id="email" label="Email" style={{color:'white'}} name={"email"} value={formData.email} onChange={handleChange}/>
                     </FormControl>
                     <FormControl sx={{ m: 1, width: '25ch', backgroundColor:'#77A6AC', borderRadius:'5px' }} variant="outlined">

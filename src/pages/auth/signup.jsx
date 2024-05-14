@@ -44,14 +44,14 @@ function SignUp() {
                     <Typography style={{fontSize:'small', marginBottom:'3vh'}}>ALREADY A MEMBER? <Link to={'/auth/login'} style={{color:'red', textDecoration:'none', cursor:'pointer'}}>LOGIN</Link></Typography>
                     <Stack direction='row' justifyContent='space-between'>
                         <FormControl variant="outlined">
-                            <TextField id="email" label="First Name" style={{backgroundColor:'#26626A',color:'white', borderRadius:'5px', marginBottom:'3vh'}} name={"firstName"} value={formData.firstName} onChange={handleChange}/>
+                            <TextField id="email" label="First Name" style={{backgroundColor:'#77A6AC',color:'white', borderRadius:'5px', marginBottom:'3vh'}} name={"firstName"} value={formData.firstName} onChange={handleChange}/>
                         </FormControl>
                         <FormControl variant="outlined">
-                            <TextField id="email" label="Last Name" style={{backgroundColor:'#26626A',color:'white', borderRadius:'5px', marginBottom:'3vh'}} name={"lastName"} value={formData.lastName} onChange={handleChange}/>
+                            <TextField id="email" label="Last Name" style={{backgroundColor:'#77A6AC',color:'white', borderRadius:'5px', marginBottom:'3vh'}} name={"lastName"} value={formData.lastName} onChange={handleChange}/>
                         </FormControl>
                     </Stack>
                     <FormControl variant="outlined">
-                        <TextField id="email" label="Email" style={{backgroundColor:'#26626A',color:'white', borderRadius:'5px', marginBottom:'3vh'}} name={"email"} value={formData.email} onChange={handleChange}/>
+                        <TextField id="email" label="Email" style={{backgroundColor:'#77A6AC',color:'white', borderRadius:'5px', marginBottom:'3vh'}} name={"email"} value={formData.email} onChange={handleChange}/>
                     </FormControl>
                     <Stack direction='row' justifyContent='space-between'>
                         <FormControl sx={{ m: 1, width: '25ch', backgroundColor:'#77A6AC', borderRadius:'5px' }} variant="outlined">
@@ -102,7 +102,7 @@ function SignUp() {
                         </FormControl>
                     </Stack>
                     <FormControl variant="outlined">
-                        <TextField id="phone" label="Phone Number" style={{backgroundColor:'#26626A',color:'white', borderRadius:'5px', marginBottom:'3vh'}} name={"contact"} value={formData.contact} onChange={handleChange}/>
+                        <TextField id="phone" label="Phone Number" style={{backgroundColor:'#77A6AC',color:'white', borderRadius:'5px', marginBottom:'3vh'}} name={"contact"} value={formData.contact} onChange={handleChange}/>
                     </FormControl>
                     <Stack direction='column' justifyContent='center' alignContent='center'>
                         <Button sx={{borderRadius:'15px', backgroundColor:'#A15D48', color:'white', width:'10vw', alignContent:'center', justifyContent:'center', marginBottom:'5vh'}} onClick={handleRegistration}>CREATE ACCOUNT</Button>
