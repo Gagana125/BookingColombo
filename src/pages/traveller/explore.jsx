@@ -33,21 +33,18 @@ function Explore() {
     const [activeTab, setActiveTab] = useState("hotel");
     const dispatch = useDispatch();
     const properties = useSelector((state) => state.property.allProperties);
-    // console.log(properties);
+    console.log(properties);
     const images = [];
     const [filteredProperties, setFilteredProperties] = useState([]);
 
     const handleTabChange = (tab) => {
         // setFilteredProperties([]);
         setActiveTab(tab);
-        properties.filter((property) => {
-          // console.log(property);
-          if (property.type === tab.substring(0, tab.length - 1)) {
-          // console.log(property);
-            setFilteredProperties([...filteredProperties, property]);
-          }
-        })
-        // console.log(filteredProperties);
+        // properties.filter((property) => {
+        //   if (property.type === tab.substring(0, tab.length - 1)) {
+        //     setFilteredProperties([...filteredProperties, property]);
+        //   }
+        // })
     };
     console.log(filteredProperties);
 
@@ -69,8 +66,9 @@ function Explore() {
                 <Tab eventKey="hotels" title={<CustomTabButton label="Hotels" isActive={activeTab === "hotels"} onClick={() => handleTabChange("hotels")} />}>
                     <div className="explore-tabs-content">
                         {
-                            filteredProperties.map((property) => {
+                            properties.map((property) => {
                                 return (
+                                    property.type === 'hotel' ?
                                     <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
                                         <img className="explore-img" src={'http://localhost:3000/'+property.images[0].image} alt="" />
                                         <Stack direction='column' width='16vw' marginTop='5vh'>
@@ -90,7 +88,7 @@ function Explore() {
                                                 SEE DETAILS
                                             </Link>
                                         </Button>
-                                    </Stack>
+                                    </Stack> : null
                                 )
                             })
                         }
@@ -99,8 +97,9 @@ function Explore() {
                 <Tab eventKey="apartments" title={<CustomTabButton label="APARTMENTS" isActive={activeTab === "apartment"} onClick={() => handleTabChange("restaurantss")} />}>
                 <div className="explore-tabs-content">
                     {
-                        filteredProperties.map((property) => {
+                        properties.map((property) => {
                             return (
+                                property.type==='restaurants' ?
                                 <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
                                     <img className="explore-img" src={'http://localhost:3000/'+property.images[0].image} alt="" />
                                     <Stack direction='column' width='16vw' marginTop='5vh'>
@@ -120,7 +119,7 @@ function Explore() {
                                             SEE DETAILS
                                         </Link>
                                     </Button>
-                                </Stack>
+                                </Stack> : null
                             )
                         })
                     }
@@ -129,8 +128,9 @@ function Explore() {
                 <Tab eventKey="boutiques" title={<CustomTabButton label="BOUTIQUES" isActive={activeTab === "boutique"} onClick={() => handleTabChange("boutiquess")} />}>
                 <div className="explore-tabs-content">
                     {
-                        filteredProperties.map((property) => {
+                        properties.map((property) => {
                             return (
+                                property.type==='boutiques' ?
                                 <Stack direction='column' marginBottom='2vh' width='18vw' margin='2vw' padding='1vw'>
                                     <img className="explore-img" src={'http://localhost:3000/'+property.images[0].image} alt="" />
                                     <Stack direction='column' width='16vw' marginTop='5vh'>
@@ -150,7 +150,7 @@ function Explore() {
                                             SEE DETAILS
                                         </Link>
                                     </Button>
-                                </Stack>
+                                </Stack> : null
                             )
                         })
                     }
