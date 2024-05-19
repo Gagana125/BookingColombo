@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 
 function TravellerNavbar() {
+    const logout = () => {
+        localStorage.removeItem('propertyOwner');
+        localStorage.removeItem('traveller');
+        localStorage.removeItem('admin');
+        window.location.href = '/';
+    }
+
   return (
     <Container >
       <div className="custom-image"></div>
@@ -15,7 +22,7 @@ function TravellerNavbar() {
           <Link to={'/traveller/property'} style={{ color: 'white', textDecoration: 'none' }}>EXPLORE MORE</Link>
           <Link to={'/traveller/profile'} style={{ color: 'white', textDecoration: 'none' }}>USER PROFILE</Link>
         {/* </div> */}
-        <Link to={'/'} style={{ color: 'white', textDecoration: 'none' }}> LOG OUT <LogoutIcon/></Link>
+        <Link onClick={logout} style={{ color: 'white', textDecoration: 'none' }}> LOG OUT <LogoutIcon/></Link>
       </Stack>
     </Container>
   )
