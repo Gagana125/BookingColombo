@@ -217,6 +217,7 @@ body {
 .category-card {
     width: 18em;
     max-width: 18em;
+    margin-right: 4vw;
 }
 
 .category-image{

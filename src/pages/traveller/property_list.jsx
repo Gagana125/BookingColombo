@@ -170,7 +170,7 @@ function PropertyList() {
                     }}>
                         {selectedCategory.toUpperCase()}
                     </Typography>
-                    <Stack direction='row' justifyContent='space-around'>
+                    <Stack direction='row' justifyContent='flex-start' flexWrap='wrap' >
                         {/* Render cards for filtered places */}
                         {filteredPlaces.map(place => (
                             <div key={place.id} className={"category-card"}>

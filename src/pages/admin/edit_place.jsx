@@ -32,6 +32,16 @@ function EditPlace(){
     let place = useSelector((state) => state.place.onePlace);
     console.log(place);
 
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+
+    const handleEditDialogOpen = () => {
+        setEditDialogOpen(true);
+    };
+
+    const handleEditDialogClose = () => {
+      setEditDialogOpen(false);
+    };
+
 
     const clearFormData = (e) => {
         e.preventDefault();
@@ -69,11 +79,14 @@ function EditPlace(){
             ...formData,
             [e.target.name]: e.target.value
         });
+        console.log(formData);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setEditDialogOpen(false);
         let data = new FormData();
+        console.log(data);
 
         data.append('category', formData.category);
         data.append('place', formData.place);
@@ -134,7 +147,8 @@ function EditPlace(){
                     <Typography sx={{color:'#A15D48', fontSize:'medium', fontWeight:'bolder', marginBottom:'2vh'}}>
                         Fill ONLY the details to be updated
                     </Typography>
-                    <form>
+                    { 
+                    formData !== undefined ? <form encType={'multipart/form-data'} onSubmit={handleEditDialogOpen}>
                         <label className="property-form-label">PLACE ID</label>
                         <input className="property-form-text" type="text" disabled value={id} name={"placeCode"} onChange={handleChange}/>
                         <label className="property-form-label">CATEGORY</label>
@@ -155,7 +169,7 @@ function EditPlace(){
                          
                         </textarea>
                         <label className="property-form-label">UPLOAD IMAGES</label>
-                        <input type="file" name="property-images" id="" onChange={handleChange}/>
+                        <input type="file" name="images" id="" onChange={handleImageUpload} multiple/>
                         <label className="property-form-label">LOCATION</label>
                         <input className="property-form-text" type="text" name="location" value={formData.location} onChange={handleChange}/>
                         <Stack direction='row' justifyContent='space-around'>
@@ -168,10 +182,17 @@ function EditPlace(){
                                     justifyContent:'center', 
                                     marginTop:'5vh'
                                 }}
-                                onClick={handleSubmit}
+                                onClick={handleEditDialogOpen}
                             >
                                 UPDATE DETAILS
                             </Button>
+                            <DeleteDialog
+                                    open={editDialogOpen}
+                                    onClose={handleEditDialogClose}
+                                    onConfirm={handleSubmit}
+                                    title="UPDATE PLACE?"
+                                    content="Are you sure you want to update this place?"
+                                />
                             <Button
                                 sx={{ 
                                     backgroundColor:'#A15D48', 
@@ -207,7 +228,8 @@ function EditPlace(){
                             </Button>
                         </Stack>
                         
-                    </form>
+                    </form> : <div></div>
+                    }
                 </Stack>
             </Stack>
         </Container>

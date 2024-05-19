@@ -47,6 +47,7 @@ const propertySlice = createSlice({
             if(action.payload.statusFlag === 'success'){
                 state.errors.updateProperty = '';
                 state.message.updateProperty = action.payload.message;
+                window.location.href = '/propertyOwner/viewProperty';
             } else{
                 state.message.updateProperty = '';
                 state.errors.updateProperty = action.payload.errors;

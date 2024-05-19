@@ -14,6 +14,7 @@ function EditProperty(){
         window.location.href = '/auth/loginprop';
     }
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
 
     const [formData, setFormData] = useState({
         propertyCode: '',
@@ -30,6 +31,14 @@ function EditProperty(){
 
   const handleDeleteDialogClose = () => {
     setDeleteDialogOpen(false);
+  };
+
+  const handleEditDialogOpen = () => {
+    setEditDialogOpen(true);
+  };
+
+  const handleEditDialogClose = () => {
+    setEditDialogOpen(false);
   };
 
     useEffect(() => {
@@ -64,6 +73,7 @@ function EditProperty(){
             });
         }
     }, [property]);
+
   const handleDeleteConfirmation = (id) => {
     setDeleteDialogOpen(false);
     dispatch(deleteProperty(id));
@@ -82,6 +92,7 @@ function EditProperty(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setEditDialogOpen(false);
         const data = new FormData();
         data.append('propertyCode', formData.propertyCode);
         data.append('type', formData.type);
@@ -117,7 +128,7 @@ function EditProperty(){
                         Fill ONLY the details to be updated
                     </Typography>
                     {
-                        formData !== undefined ? <form encType={'multipart/form-data'} onSubmit={handleSubmit}>
+                        formData !== undefined ? <form encType={'multipart/form-data'} onSubmit={handleEditDialogOpen}>
                             <label className="property-form-label">PROPERTY ID</label>
                             <input className="property-form-text" type="text" disabled value={formData.propertyCode} name={"propertyCode"} onChange={handleChange}/>
                             <label className="property-form-label">SELECT THE TYPE OF PROPERTY</label>
@@ -149,11 +160,19 @@ function EditProperty(){
                                         marginTop:'5vh'
                                     }}
 
-                                    type={'submit'}
+                                    // type={'submit'}
+                                    onClick={handleEditDialogOpen}
                                 >
                                     UPDATE DETAILS
 
                                 </Button>
+                                <DeleteDialog
+                                    open={editDialogOpen}
+                                    onClose={handleEditDialogClose}
+                                    onConfirm={handleSubmit}
+                                    title="UPDATE PROPERTY?"
+                                    content="Are you sure you want to update this property?"
+                                />
                                 <Button
                                     sx={{
                                         backgroundColor:'#A15D48',
